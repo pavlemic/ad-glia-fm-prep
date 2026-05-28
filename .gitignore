@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Local working logs (mirror brain-organoid pattern)
+What we did.txt
+scratch/
+
+# Large data — never commit
+*.h5ad
+*.h5
+*.loom
+*.mtx
+*.mtx.gz
+
+# Model artifacts — LoRA adapters small (~30MB) so optionally committed; full weights never
+checkpoints/full/
+*.pt
+*.bin
+*.safetensors
+
+# Large PNG plot directories (per-panel grids)
+outputs/*_PLOTS/
+
+# Embeddings caches
+outputs/embeddings/
+
+# Drive-only scratch
+.drive_cache/

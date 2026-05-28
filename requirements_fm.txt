@@ -1,0 +1,68 @@
+# =============================================================================
+# ad-glia-fm-prep — FM env (Path A, decision 2026-05-28)
+#
+# Used by: zero-shot FM embedding notebooks, CPT/LoRA fine-tuning notebooks
+# (Geneformer + scGPT), eval notebooks (linear probe, APOE recovery,
+# catastrophic-forgetting probe).
+#
+# Python: 3.10 (highest version satisfying both Geneformer setup.py >=3.10
+# and scGPT pyproject.toml <4 with its pinned-old deps).
+# DO NOT install in same env as requirements_integration.txt.
+#
+# Hand-off from integration env: h5ad files written by the integration env,
+# read by the FM env.
+# =============================================================================
+
+# Stable bottom — scGPT-constrained (scanpy <2, pandas <2 historically, etc.)
+scanpy==1.9.8                  # scGPT pins <2.0.0
+anndata==0.10.9
+leidenalg==0.10.2
+igraph==0.11.6
+umap-learn==0.5.6
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.13.1
+matplotlib==3.9.2
+seaborn==0.13.2
+scikit-learn==1.5.2
+jupyter==1.1.1
+ipykernel==6.29.5
+
+# Hard-pinned to resolve the scGPT × scvi-tools conflict
+scvi-tools==0.20.3             # last pre-1.0; required by scGPT 0.2.5
+scgpt==0.2.5
+
+# Geneformer V2 — install via git, NOT pypi. Add the following to the first
+# Colab cell:
+#   !git lfs install
+#   !git clone https://huggingface.co/ctheodoris/Geneformer
+#   !cd Geneformer && pip install .
+# Pin to a commit hash once the working setup is captured.
+
+# Transformers + adapters stack (TBD — Geneformer V2 setup.py leaves these
+# unpinned, accepts latest of each; first Colab install will resolve, then
+# pin via `!pip freeze`). Known hazards:
+#   - peft must match transformers minor
+#   - accelerate must match transformers minor
+#   - huggingface_hub must match transformers
+# Stubs:
+# transformers==TBD
+# huggingface_hub==TBD
+# peft==TBD
+# accelerate==TBD
+
+# Geneformer hard deps (leave unpinned at first install; capture after)
+# datasets==TBD               # scGPT pins <3
+# bitsandbytes==TBD           # Geneformer quantization
+# ray==TBD                    # Geneformer optuna integration
+# optuna==TBD
+# optuna-integration==TBD
+# loompy==TBD
+
+# torch: TBD — match Colab CUDA wheel. Range required: >=2.2 if flash-attn
+# is wanted (scGPT `fa2` extras), else >=1.13 to satisfy scGPT base.
+# torch==TBD
+
+# flash-attn: TBD — CUDA-pinned wheel. Optional; install only after torch
+# is pinned. scGPT `fa2` group requires >=2.8.
+# flash-attn==TBD

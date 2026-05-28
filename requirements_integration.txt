@@ -1,0 +1,37 @@
+# =============================================================================
+# ad-glia-fm-prep — Integration env (Path A, decision 2026-05-28)
+#
+# Used by: per-study QC notebooks, integration notebook (scVI + scANVI/Harmony),
+# astro+microglia subsetting, scIB-metrics evaluation.
+#
+# Python: 3.12 (required by scvi-tools 1.4.x)
+# DO NOT install in same env as requirements_fm.txt (scvi-tools major-version
+# conflict — scGPT pins <1.0).
+# =============================================================================
+
+# Stable bottom
+scanpy==1.10.3
+anndata==0.10.9
+leidenalg==0.10.2
+igraph==0.11.6
+umap-learn==0.5.6
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.13.1
+matplotlib==3.9.2
+seaborn==0.13.2
+scikit-learn==1.5.2
+scrublet==0.2.3
+jupyter==1.1.1
+ipykernel==6.29.5
+
+# Integration stack
+scvi-tools==1.4.3
+harmonypy==0.0.10
+scib-metrics==0.5.5
+
+# torch + jax: install via Colab's PyTorch/JAX wheel matching the runtime CUDA.
+# Capture exact pins after first successful Colab session via `!pip freeze`.
+# Stubs:
+# torch==TBD
+# jax==TBD
