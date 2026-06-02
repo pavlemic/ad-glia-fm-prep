@@ -1,11 +1,10 @@
-"""Per-study loaders + vocab alignment + DIAN filter.
+"""Per-study loaders + vocab alignment.
 
-Substrate (locked 2026-05-22):
-  - SEA-AD     : Synapse syn52146347 / Allen portal. MTG + DLPFC. 84 donors.
-  - Brase 2023 : Zenodo 10.5281/zenodo.7630313. Parietal cortex BA 7/39.
-                 67 donors total. DIAN-filter required (exclude PSEN1/APP
-                 autosomal-dominant carriers — different mechanism than APOE).
+Substrate (locked 2026-06-02):
+  - SEA-AD     : Allen portal / AWS open access. MTG + DLPFC. 84 donors.
   - Li 2025    : GEO GSE237718. Temporal cortex. 56 donors.
+  - Haney 2024 : GEO GSE254205. Frontal cortex SFG + fusiform. 15 donors.
+                 APOE3/3-ctrl / APOE3/3-AD / APOE4/4-AD (5 per group).
 
 Vocab alignment: Geneformer = Ensembl gene IDs (~25K). scGPT = HGNC symbols
 (checkpoint-dependent). Each study uses its own ID convention. Setup audit:
@@ -22,21 +21,21 @@ NICHE_CRITICAL_GENES = [
 
 
 def load_sea_ad(path):
-    """Load SEA-AD AnnData from Synapse-mirrored local copy."""
-    raise NotImplementedError
-
-
-def load_brase2023(path, dian_filter=True):
-    """Load Brase 2023 AnnData from Zenodo-mirrored local copy.
-
-    dian_filter=True excludes PSEN1/APP autosomal-dominant carriers (DIAN
-    cohort), leaving the Knight ADRC sporadic-AD subset for APOE analysis.
-    """
+    """Load SEA-AD AnnData from Allen-portal-mirrored local copy."""
     raise NotImplementedError
 
 
 def load_li2025(path):
     """Load Li 2025 AnnData from GEO GSE237718-derived local copy."""
+    raise NotImplementedError
+
+
+def load_haney2024(path):
+    """Load Haney 2024 AnnData from GEO GSE254205-derived local copy.
+
+    Deposit: GSE254205_ad_raw.h5ad.gz (700 MB). APOE genotype expected in
+    adata.obs (primary design variable — 5 donors per APOE × disease group).
+    """
     raise NotImplementedError
 
 
