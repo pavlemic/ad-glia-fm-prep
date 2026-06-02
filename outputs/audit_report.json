@@ -1,0 +1,94 @@
+{
+  "audit_f_storage": {
+    "audit": "F \u2014 storage budget",
+    "budget_gb": 70,
+    "items": [
+      {
+        "item": "SEA-AD raw (Allen portal, MTG + DLPFC h5ads)",
+        "est_gb": 13.0,
+        "keep": false,
+        "note": "MTG QC'd h5ad ~5.9 GB confirmed; DLPFC ~6-7 GB est. \u2014 delete after per-study processed AnnData saved"
+      },
+      {
+        "item": "Haney 2024 raw (GEO GSE254205)",
+        "est_gb": 0.7,
+        "keep": false,
+        "note": "GSE254205_ad_raw.h5ad.gz \u2014 delete after per-study processed AnnData saved"
+      },
+      {
+        "item": "Li 2025 raw (GEO GSE237718)",
+        "est_gb": 4.7,
+        "keep": false,
+        "note": "GSE237718_RAW.tar \u2014 delete after per-study processed AnnData saved"
+      },
+      {
+        "item": "Per-study processed AnnData (\u00d73, sparse CSR)",
+        "est_gb": 3.5,
+        "keep": true,
+        "note": "est. ~2 GB SEA-AD + ~1 GB Li 2025 + ~0.5 GB Haney, post-QC sparse"
+      },
+      {
+        "item": "Integrated AnnData (sparse CSR)",
+        "est_gb": 3.0,
+        "keep": true,
+        "note": "keep"
+      },
+      {
+        "item": "Astro+microglia subset (sparse CSR)",
+        "est_gb": 0.5,
+        "keep": true,
+        "note": "keep"
+      },
+      {
+        "item": "FM weights (Geneformer + scGPT cached)",
+        "est_gb": 2.0,
+        "keep": true,
+        "note": "cached on Colab runtime; Drive footprint minimal if runtime cache persists"
+      },
+      {
+        "item": "LoRA adapters (~30MB \u00d7 24 at N=3)",
+        "est_gb": 1.0,
+        "keep": true,
+        "note": "adapters-only, not full weights"
+      },
+      {
+        "item": "Test-set embeddings (~50\u2013100MB \u00d7 ~30)",
+        "est_gb": 3.0,
+        "keep": true,
+        "note": "test-set only by default"
+      },
+      {
+        "item": "Logs + checkpoints",
+        "est_gb": 0.5,
+        "keep": false,
+        "note": "rotate"
+      }
+    ],
+    "estimated_total_gb": 31.9,
+    "status": "pass"
+  },
+  "audit_b_apoe_metadata": {
+    "audit": "B \u2014 donor APOE metadata",
+    "status": "incomplete",
+    "per_study": [
+      {
+        "study": "SEA-AD",
+        "source": "Allen portal / AWS open access",
+        "status": "skipped",
+        "note": "path is None"
+      },
+      {
+        "study": "Haney 2024",
+        "source": "GEO GSE254205 \u2014 no standalone manifest; APOE in h5ad obs",
+        "status": "skipped",
+        "note": "path is None"
+      },
+      {
+        "study": "Li 2025",
+        "source": "GEO GSE237718 \u2014 no standalone manifest; APOE in h5ad obs",
+        "status": "skipped",
+        "note": "path is None"
+      }
+    ]
+  }
+}
