@@ -90,5 +90,90 @@
         "note": "path is None"
       }
     ]
+  },
+  "audit_a_vocab_niche_critical": {
+    "per_study": {
+      "Li 2025": {
+        "study": "Li 2025",
+        "vocab_format": "HGNC",
+        "symbol_col_used": null,
+        "n_genes_post_qc": 29783,
+        "per_gene": {
+          "APOE": true,
+          "TREM2": true,
+          "MS4A6A": true,
+          "CLU": true,
+          "GFAP": true,
+          "AQP4": true,
+          "AIF1": true,
+          "CSF1R": true
+        },
+        "missing": [],
+        "status": "pass",
+        "note": "partial \u2014 FM-vocab intersection deferred to FM env notebook"
+      }
+    },
+    "status": "partial"
+  },
+  "li2025_qc_trace": {
+    "params": {
+      "min_counts": 500,
+      "min_genes": 250,
+      "max_mito_pct": 5.0,
+      "min_cells_per_gene": 10
+    },
+    "n_cells_initial": 467194,
+    "prefiltered_in_4a": true,
+    "n_cells_after_min_counts": 467194,
+    "n_cells_after_min_genes": 467137,
+    "n_cells_after_max_mito": 434129,
+    "n_cells_final": 434129,
+    "n_genes_initial": 33538,
+    "n_genes_final": 29783,
+    "n_cells_after_scrublet": 381898,
+    "scrublet_removed": 52231,
+    "scrublet_failed_samples": [
+      "GEX_18R",
+      "GEX_20R",
+      "GEX_26R",
+      "GEX_27R",
+      "GEX_29R",
+      "GEX_2R",
+      "GEX_30R",
+      "GEX_33R",
+      "GEX_37R",
+      "GEX_3R",
+      "GEX_59R",
+      "GEX_60R",
+      "GEX_7R",
+      "GEX_8R"
+    ],
+    "scrublet_n_failed": 14,
+    "scrublet_cohort_med_rate": 0.1156,
+    "sample_col": "sample_id",
+    "mito_sensitivity": {
+      "status": "computed",
+      "pre_mito_pool": 467137,
+      "locked_threshold": 5.0,
+      "celltype_col": null,
+      "celltype_source": "unavailable",
+      "astro_total": null,
+      "micro_total": null,
+      "snapshot": "post count/gene filter, pre mito filter, pre Scrublet",
+      "thresholds": {
+        "mito_lt_3.0": {
+          "total_retained": 406916,
+          "total_frac": 0.8711
+        },
+        "mito_lt_5.0": {
+          "total_retained": 434129,
+          "total_frac": 0.9293
+        },
+        "mito_lt_10.0": {
+          "total_retained": 455296,
+          "total_frac": 0.9747
+        }
+      }
+    }
   }
 }
