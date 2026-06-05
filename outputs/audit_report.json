@@ -127,7 +127,7 @@
     "n_cells_after_min_counts": 467194,
     "n_cells_after_min_genes": 467137,
     "n_cells_after_max_mito": 434129,
-    "n_cells_final": 434129,
+    "n_cells_final": 381898,
     "n_genes_initial": 33538,
     "n_genes_final": 29783,
     "n_cells_after_scrublet": 381898,
