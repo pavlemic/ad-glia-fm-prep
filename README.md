@@ -1,6 +1,6 @@
 # ad-glia-fm-prep
 
-Preparation project for a 1-year visiting researcher position at Harvard (Stanton lab). Acquires public AD scRNA-seq data, integrates across studies, and runs continued-pretraining (CPT) of two single-cell foundation models (Geneformer, scGPT) on the astrocyte + microglia niche, APOE-stratified.
+Preparationn project for a 1-year visiting researcher position at Harvard (Stanton lab). Acquires public AD scRNA-seq data, integrates across studies, and runs continued-pretraining (CPT) of two single-cell foundation models (Geneformer, scGPT) on the astrocyte + microglia niche, APOE-stratified.
 
 **Framing:** prep, not publication. Goal is foundational fluency in the techniques the postdoc described, not a novel scientific contribution. The on-site project may differ from what is built here.
 
