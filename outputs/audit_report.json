@@ -69,7 +69,7 @@
   },
   "audit_b_apoe_metadata": {
     "audit": "B \u2014 donor APOE metadata",
-    "status": "incomplete",
+    "status": "partial",
     "per_study": [
       {
         "study": "SEA-AD",
@@ -80,8 +80,13 @@
       {
         "study": "Haney 2024",
         "source": "GEO GSE254205 \u2014 no standalone manifest; APOE in h5ad obs",
-        "status": "skipped",
-        "note": "path is None"
+        "status": "pass",
+        "note": "APOE genotype recovered from obs in colab_03 4b",
+        "n_donors_with_apoe": 26,
+        "carrier_breakdown": {
+          "noncarrier": 16,
+          "carrier": 10
+        }
       },
       {
         "study": "Li 2025",
@@ -111,6 +116,25 @@
         "missing": [],
         "status": "pass",
         "note": "partial \u2014 FM-vocab intersection deferred to FM env notebook"
+      },
+      "Haney 2024": {
+        "study": "Haney 2024",
+        "vocab_format": "HGNC",
+        "symbol_col_used": null,
+        "n_genes_post_qc": 28047,
+        "per_gene": {
+          "APOE": true,
+          "TREM2": true,
+          "MS4A6A": true,
+          "CLU": true,
+          "GFAP": true,
+          "AQP4": true,
+          "AIF1": true,
+          "CSF1R": true
+        },
+        "missing": [],
+        "status": "pass",
+        "note": "partial -- FM-vocab intersection deferred to FM env notebook"
       }
     },
     "status": "partial"
@@ -173,6 +197,87 @@
           "total_retained": 455296,
           "total_frac": 0.9747
         }
+      }
+    }
+  },
+  "haney_qc_trace": {
+    "study": "Haney 2024",
+    "regions": [
+      "unknown"
+    ],
+    "params": {
+      "min_counts": 500,
+      "min_genes": 250,
+      "max_mito_pct": 5.0,
+      "min_cells_per_gene": 10
+    },
+    "n_cells_initial": 121165,
+    "n_cells_initial_note": "full processed object (no downsample; Haney is the thin study)",
+    "prefiltered_in_4a": false,
+    "n_cells_after_min_counts": 121165,
+    "n_cells_after_min_genes": 121107,
+    "n_cells_after_max_mito": 112843,
+    "n_cells_final": 112843,
+    "n_genes_initial": 33538,
+    "n_genes_final": 28047,
+    "doublets": {
+      "method": "scrublet two-pass (RUN_SCRUBLET=True)",
+      "scrublet_run": true,
+      "removed": 4079,
+      "failed_samples": [
+        "0406__unknown",
+        "0444__unknown",
+        "0527__unknown",
+        "0552__unknown",
+        "1046__unknown",
+        "1114__unknown",
+        "1159__unknown",
+        "1227__unknown",
+        "1237__unknown",
+        "1342__unknown",
+        "1369__unknown",
+        "1414__unknown",
+        "1629__unknown",
+        "1630__unknown",
+        "1868__unknown",
+        "1875__unknown"
+      ],
+      "cohort_med_rate": 0.0284
+    },
+    "n_cells_after_scrublet": 108764,
+    "mito_sensitivity": {
+      "status": "computed",
+      "pre_mito_pool": 121107,
+      "locked_threshold": 5.0,
+      "celltype_col": null,
+      "celltype_source": "unavailable",
+      "astro_total": null,
+      "micro_total": null,
+      "snapshot": "post count/gene filter, pre mito filter",
+      "thresholds": {
+        "mito_lt_3.0": {
+          "total_retained": 107182,
+          "total_frac": 0.885
+        },
+        "mito_lt_5.0": {
+          "total_retained": 112843,
+          "total_frac": 0.9318
+        },
+        "mito_lt_10.0": {
+          "total_retained": 118086,
+          "total_frac": 0.9751
+        }
+      },
+      "niche_check": "skipped: no cell-type labels in Haney deposit; deferred to post-integration"
+    },
+    "donor_census_diagnosis_x_carrier": {
+      "AD": {
+        "carrier": 10,
+        "noncarrier": 8
+      },
+      "control": {
+        "carrier": 0,
+        "noncarrier": 8
       }
     }
   }
