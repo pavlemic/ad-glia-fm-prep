@@ -43,6 +43,15 @@ checkpoints/full/
 # Large PNG plot directories (per-panel grids)
 outputs/*_PLOTS/
 
+# Figures — kept LOCAL only, one subfolder per notebook (figures/colab_NN/).
+# Folder structure stays tracked via .gitkeep; the actual images are not pushed.
+figures/**/*.png
+figures/**/*.jpg
+figures/**/*.jpeg
+figures/**/*.pdf
+figures/**/*.svg
+!figures/**/.gitkeep
+
 # Embeddings caches
 outputs/embeddings/
 
