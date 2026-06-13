@@ -280,5 +280,32 @@
         "noncarrier": 8
       }
     }
+  },
+  "integration_scvi": {
+    "status": "computed",
+    "date": "2026-06-12",
+    "n_cells": 694922,
+    "n_genes_intersection": 26514,
+    "n_hvg": 3000,
+    "n_scvi_genes": 3001,
+    "batch_key": "study_id",
+    "n_latent": 30,
+    "gene_likelihood": "nb",
+    "n_leiden_clusters": 46,
+    "study_dominated_clusters": [
+      "5",
+      "7",
+      "22",
+      "33",
+      "35",
+      "42",
+      "44",
+      "45"
+    ],
+    "study_fractions": {
+      "Li2025": 0.5496,
+      "SEA-AD": 0.2939,
+      "Haney2024": 0.1565
+    }
   }
 }
