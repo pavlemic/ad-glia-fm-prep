@@ -1,0 +1,19 @@
+{
+  "notebook_id": "colab_06",
+  "date": "2026-06-17",
+  "python_version": "3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+  "os_release": "6.6.122+",
+  "gpu": "GPU 0: NVIDIA A100-SXM4-80GB (UUID: GPU-f68b30e7-fdc2-cb26-a529-105be8212d2a)",
+  "nvidia_driver": "580.82.07",
+  "git_commit": "56f1485d6470852c289c12d3ab10e4efa8eee8df",
+  "scvi_tools_version": "1.4.3",
+  "scanpy_version": "1.10.4",
+  "anndata_version": "0.11.4",
+  "jax_version": "0.7.1",
+  "scib_metrics_version": "0.5.5",
+  "torch_version": "2.11.0+cu128",
+  "torch_cuda_version": "12.8",
+  "cuda_available": true,
+  "cudnn_version": 91900
+}

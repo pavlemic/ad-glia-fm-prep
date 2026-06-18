@@ -1,0 +1,5 @@
+lineage,embedding,n_cells,n_cells_scored,silhouette_E4,knn_baccuracy_E4
+astrocyte,X_scVI,79425,40000,0.0039,0.8584
+astrocyte,X_scANVI,79425,40000,0.0044,0.842
+microglia,X_scVI,46031,40000,0.006,0.7555
+microglia,X_scANVI,46031,40000,0.0084,0.7481
