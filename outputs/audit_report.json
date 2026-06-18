@@ -69,13 +69,14 @@
   },
   "audit_b_apoe_metadata": {
     "audit": "B \u2014 donor APOE metadata",
-    "status": "partial",
+    "status": "pass",
     "per_study": [
       {
         "study": "SEA-AD",
         "source": "Allen portal / AWS open access",
-        "status": "skipped",
-        "note": "path is None"
+        "status": "pass",
+        "note": "donor-level APOE confirmed present + integrated (colab_06)",
+        "n_donors_with_apoe": 63
       },
       {
         "study": "Haney 2024",
@@ -91,8 +92,9 @@
       {
         "study": "Li 2025",
         "source": "GEO GSE237718 \u2014 no standalone manifest; APOE in h5ad obs",
-        "status": "skipped",
-        "note": "path is None"
+        "status": "pass",
+        "note": "donor-level APOE confirmed present + integrated (colab_06)",
+        "n_donors_with_apoe": 56
       }
     ]
   },
@@ -306,6 +308,28 @@
       "Li2025": 0.5496,
       "SEA-AD": 0.2939,
       "Haney2024": 0.1565
+    }
+  },
+  "integration_scanvi": {
+    "status": "computed",
+    "date": "2026-06-17",
+    "warm_start_from": "scvi_colab04",
+    "batch_key": "study_id",
+    "labels_key": "cell_type",
+    "n_cells": 694922,
+    "n_scanvi_leiden_clusters": 43,
+    "scib_subsample_n": 100000,
+    "scib_results_csv": "outputs/scib_scvi_vs_scanvi_2026-06-17.csv",
+    "apoe_recovery_csv": "outputs/apoe_recovery_scvi_vs_scanvi_2026-06-17.csv",
+    "cell_type_counts": {
+      "neuron_exc": 241595,
+      "oligodendrocyte": 191459,
+      "astrocyte": 94271,
+      "neuron_inh": 80571,
+      "microglia": 55104,
+      "OPC": 25851,
+      "endothelial": 4727,
+      "perivascular_mac": 1344
     }
   }
 }
