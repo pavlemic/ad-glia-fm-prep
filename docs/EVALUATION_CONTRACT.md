@@ -38,7 +38,11 @@ Pre-registration for the continued-pretraining (CPT) phase. Its single purpose i
 
 **Why:** gross astrocyte-vs-microglia identity saturates (any embedding separates them). The informative question is whether CPT sharpens **within-lineage substate** structure.
 
-**Setup:** train a linear probe on substate labels — microglia: DAM (disease-associated) vs homeostatic; astrocyte: DAA / GFAP-high (reactive) vs resting. Probe trained on the train split, scored on the global held-out.
+**Setup:** train a linear probe on substate labels — microglia: **activated (SPP1/phagocytic) vs homeostatic**; astrocyte: DAA / GFAP-high (reactive) vs resting. Probe trained on the train split, scored on the global held-out.
+
+> The microglia axis was originally specified as **DAM vs homeostatic**. colab_07 established that canonical mouse-DAM is **not recoverable** in this intersection snRNA gene set — the DAM-specific markers (CST7/LPL/GPNMB) are at dropout, and a DAM score built on the full list is dominated by pan-microglial genes (APOE/CTSB/TYROBP/TREM2), which collapsed the first-run labels to 99.5% one class. The measurable activation program is SPP1/phagocytic; the axis is relabeled accordingly (not a threshold change — a correction of what the data can support, made before any CPT result). See the colab_07 §6a record.
+
+**Split:** eval #1 inherits the **global donor-level 70/15/15 held-out** (above), so probe train and test donors are disjoint — the probe is **donor-held-out by construction**, and a substate prediction cannot be a memorised donor identity (an unseen test donor's cells are unavailable to leak).
 
 **Metric:** probe accuracy, **balanced accuracy if classes are imbalanced**.
 
@@ -51,7 +55,9 @@ Pre-registration for the continued-pretraining (CPT) phase. Its single purpose i
 | decisive | ≥ 10% |
 | **regression** | > 2% drop |
 
-**OPEN — substate label source.** The DAM/homeostatic and DAA/resting labels do not exist in the raw metadata; they must be defined (marker-score thresholds, or a published reference signature). This must be fixed and committed **before** the probe is built, or eval #1 is circular. Flagged for resolution at eval-build time.
+**Substate label source (RESOLVED for microglia; astrocyte pending).** The activated/homeostatic and DAA/resting labels do not exist in the raw metadata, so they are defined from marker signatures and committed **before** the probe is built, or eval #1 is circular. Microglia: committed in `outputs/microglia_substate_signatures.json` (colab_07) — a z-scored continuous activated−homeostatic axis over a donor-disjoint sub-clustering, labels {activated, homeostatic, intermediate}, with the excluded genes and reasons recorded. Astrocyte: pending the analogous colab_08 step, using the **same rebuilt method** (the canonical-marker-argmax trap that broke microglia DAM will recur for astrocyte DAA).
+
+**Mandatory confound reporting (parallel to eval #2).** The substate labels are **donor/study-confounded** — the activation (and prospective DAA) pole concentrates in a handful of donors / one study (colab_07 §6a/§6b flag this per subcluster). The donor-level split prevents *inflated* accuracy, but it cannot manufacture held-out *coverage*: every eval #1 result **must** report the per-substate donor/study composition of the held-out cells driving it, and a substate that is near-absent or single-donor in the held-out set is **unevaluable** — reported as underpowered, never as a win. A probe "gain" carried by a single-donor substate is a null.
 
 ---
 
@@ -138,6 +144,7 @@ These are **go/no-go sanity checks**, run before interpreting any eval. They bra
 | Event | Commit | Date |
 |---|---|---|
 | Provisional draft | (this commit) | 2026-06-16 |
+| Eval #1 label source resolved (microglia) + relabel DAM→activated + confound clause | (this commit) | 2026-06-19 |
 | Post-pilot refinement | TBD | TBD |
 | Permanent lock | TBD | TBD |
 
