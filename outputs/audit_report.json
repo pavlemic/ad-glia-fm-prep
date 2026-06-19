@@ -331,5 +331,20 @@
       "endothelial": 4727,
       "perivascular_mac": 1344
     }
+  },
+  "microglia_subset": {
+    "status": "computed",
+    "date": "2026-06-19",
+    "n_microglia": 54805,
+    "n_subclusters": 18,
+    "subcluster_on": "X_scVI",
+    "substate_axis": "activated_SPP1_phagocytic_vs_homeostatic",
+    "substate_counts": {
+      "homeostatic": 25845,
+      "intermediate": 16851,
+      "activated": 12109
+    },
+    "substate_signatures_file": "outputs/microglia_substate_signatures.json",
+    "cl44_verdict": "drop"
   }
 }

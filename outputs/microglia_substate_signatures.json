@@ -1,0 +1,308 @@
+{
+  "date": "2026-06-19",
+  "lineage": "microglia",
+  "axis": "activated_SPP1_phagocytic_vs_homeostatic",
+  "scoring": "per-gene z-score across all microglia (lognorm); pole = mean z; substate_axis = activated - homeostatic; cluster-level mean",
+  "signatures": {
+    "activated": [
+      "SPP1",
+      "ITGAX",
+      "CD9"
+    ],
+    "homeostatic": [
+      "P2RY12",
+      "P2RY13",
+      "SELPLG",
+      "CX3CR1"
+    ]
+  },
+  "present": {
+    "activated": [
+      "SPP1",
+      "ITGAX",
+      "CD9"
+    ],
+    "homeostatic": [
+      "P2RY12",
+      "P2RY13",
+      "SELPLG",
+      "CX3CR1"
+    ]
+  },
+  "excluded_genes": {
+    "pan_microglial_inflators": [
+      "APOE",
+      "CTSB",
+      "TYROBP",
+      "TREM2"
+    ],
+    "dropout_in_this_dataset": [
+      "CST7",
+      "LPL",
+      "GPNMB",
+      "TMEM119",
+      "SALL1"
+    ]
+  },
+  "intermediate_margin_zunits": 0.1,
+  "per_subcluster": [
+    {
+      "subcluster": "0",
+      "n": 6237,
+      "substate": "homeostatic",
+      "axis_only_call": "homeostatic",
+      "axis": -0.155,
+      "top_donor_frac": 0.102,
+      "top_study_frac": 0.91,
+      "confounded": true
+    },
+    {
+      "subcluster": "1",
+      "n": 5718,
+      "substate": "homeostatic",
+      "axis_only_call": "homeostatic",
+      "axis": -0.435,
+      "top_donor_frac": 0.15,
+      "top_study_frac": 0.668,
+      "confounded": true
+    },
+    {
+      "subcluster": "2",
+      "n": 5716,
+      "substate": "intermediate",
+      "axis_only_call": "intermediate",
+      "axis": -0.059,
+      "top_donor_frac": 0.111,
+      "top_study_frac": 0.509,
+      "confounded": false
+    },
+    {
+      "subcluster": "3",
+      "n": 5186,
+      "substate": "homeostatic",
+      "axis_only_call": "homeostatic",
+      "axis": -0.218,
+      "top_donor_frac": 0.128,
+      "top_study_frac": 0.938,
+      "confounded": true
+    },
+    {
+      "subcluster": "4",
+      "n": 4682,
+      "substate": "intermediate",
+      "axis_only_call": "intermediate",
+      "axis": 0.016,
+      "top_donor_frac": 0.11,
+      "top_study_frac": 0.398,
+      "confounded": false
+    },
+    {
+      "subcluster": "5",
+      "n": 4094,
+      "substate": "homeostatic",
+      "axis_only_call": "homeostatic",
+      "axis": -0.186,
+      "top_donor_frac": 0.09,
+      "top_study_frac": 0.589,
+      "confounded": false
+    },
+    {
+      "subcluster": "6",
+      "n": 3807,
+      "substate": "activated",
+      "axis_only_call": "activated",
+      "axis": 0.304,
+      "top_donor_frac": 0.11,
+      "top_study_frac": 0.435,
+      "confounded": false
+    },
+    {
+      "subcluster": "7",
+      "n": 3648,
+      "substate": "activated",
+      "axis_only_call": "activated",
+      "axis": 0.665,
+      "top_donor_frac": 0.057,
+      "top_study_frac": 0.657,
+      "confounded": true
+    },
+    {
+      "subcluster": "8",
+      "n": 2919,
+      "substate": "homeostatic",
+      "axis_only_call": "homeostatic",
+      "axis": -0.296,
+      "top_donor_frac": 0.081,
+      "top_study_frac": 0.891,
+      "confounded": true
+    },
+    {
+      "subcluster": "9",
+      "n": 2725,
+      "substate": "intermediate",
+      "axis_only_call": "intermediate",
+      "axis": -0.002,
+      "top_donor_frac": 0.186,
+      "top_study_frac": 0.613,
+      "confounded": true
+    },
+    {
+      "subcluster": "10",
+      "n": 2059,
+      "substate": "intermediate",
+      "axis_only_call": "activated",
+      "axis": 0.336,
+      "top_donor_frac": 0.175,
+      "top_study_frac": 0.59,
+      "confounded": false
+    },
+    {
+      "subcluster": "11",
+      "n": 1922,
+      "substate": "activated",
+      "axis_only_call": "activated",
+      "axis": 0.14,
+      "top_donor_frac": 0.195,
+      "top_study_frac": 0.899,
+      "confounded": true
+    },
+    {
+      "subcluster": "12",
+      "n": 1691,
+      "substate": "homeostatic",
+      "axis_only_call": "homeostatic",
+      "axis": -0.114,
+      "top_donor_frac": 0.42,
+      "top_study_frac": 0.503,
+      "confounded": false
+    },
+    {
+      "subcluster": "13",
+      "n": 1669,
+      "substate": "intermediate",
+      "axis_only_call": "intermediate",
+      "axis": -0.056,
+      "top_donor_frac": 0.065,
+      "top_study_frac": 0.547,
+      "confounded": false
+    },
+    {
+      "subcluster": "14",
+      "n": 1320,
+      "substate": "activated",
+      "axis_only_call": "activated",
+      "axis": 1.312,
+      "top_donor_frac": 0.567,
+      "top_study_frac": 0.852,
+      "confounded": true
+    },
+    {
+      "subcluster": "15",
+      "n": 834,
+      "substate": "activated",
+      "axis_only_call": "activated",
+      "axis": 0.407,
+      "top_donor_frac": 0.379,
+      "top_study_frac": 0.754,
+      "confounded": true
+    },
+    {
+      "subcluster": "16",
+      "n": 350,
+      "substate": "activated",
+      "axis_only_call": "activated",
+      "axis": 0.311,
+      "top_donor_frac": 0.757,
+      "top_study_frac": 0.837,
+      "confounded": true
+    },
+    {
+      "subcluster": "17",
+      "n": 228,
+      "substate": "activated",
+      "axis_only_call": "activated",
+      "axis": 0.161,
+      "top_donor_frac": 0.868,
+      "top_study_frac": 0.965,
+      "confounded": true
+    }
+  ],
+  "per_subcluster_assignment": {
+    "0": "homeostatic",
+    "1": "homeostatic",
+    "2": "intermediate",
+    "3": "homeostatic",
+    "4": "intermediate",
+    "5": "homeostatic",
+    "6": "activated",
+    "7": "activated",
+    "8": "homeostatic",
+    "9": "intermediate",
+    "10": "intermediate",
+    "11": "activated",
+    "12": "homeostatic",
+    "13": "intermediate",
+    "14": "activated",
+    "15": "activated",
+    "16": "activated",
+    "17": "activated"
+  },
+  "per_subcluster_assignment_axis_only": {
+    "0": "homeostatic",
+    "1": "homeostatic",
+    "2": "intermediate",
+    "3": "homeostatic",
+    "4": "intermediate",
+    "5": "homeostatic",
+    "6": "activated",
+    "7": "activated",
+    "8": "homeostatic",
+    "9": "intermediate",
+    "10": "activated",
+    "11": "activated",
+    "12": "homeostatic",
+    "13": "intermediate",
+    "14": "activated",
+    "15": "activated",
+    "16": "activated",
+    "17": "activated"
+  },
+  "nuisance_override": {
+    "10": {
+      "to": "intermediate",
+      "reason": "sex-driven (Y-linked DE: UTY/USP9Y/TTTY14), not activation biology; axis 0.336 not trusted \u2014 donor/study check does not catch sex confounds"
+    }
+  },
+  "known_nuisance_unconfounded": {
+    "5": "sex-driven (Y-linked DE), lands homeostatic (majority/default bucket) \u2014 not overridden",
+    "12": "heat-shock/dissociation-stress driven (HSP90AA1/HSPH1/HSPB1), lands homeostatic \u2014 not overridden"
+  },
+  "activated_bucket_heterogeneity_notes": {
+    "6": "unconfounded (Li 0.435/SEA 0.349/Haney 0.217); partial signature (SPP1/ITGAX up, no CST7/LPL/GPNMB) \u2014 the most generalizable activated call",
+    "7": "study-confounded (SEA 0.657); the only subcluster recovering CST7/LPL/GPNMB alongside SPP1/ITGAX/CD9 \u2014 closest to a DAM-like signature, not yet confirmed cross-study",
+    "11": "no clear marker identity in DE; study-confounded (0.899)",
+    "14": "most extreme axis (1.312) AND most confounded (donor 0.567, study 0.852) \u2014 do not report as a generalizable finding",
+    "15": "dissociation-stress signature (FOS/HSPA1A/DUSP1) co-occurring with activation markers; study-confounded (0.754)",
+    "16": "ambient oligodendrocyte contamination (PLP1 in DE); confounded (donor 0.757, study 0.837)",
+    "17": "MHC-II/interferon (HLA-DRA/CIITA/B2M); single-donor-driven (0.868) \u2014 real biology, not generalizable (same situation as astro cl33 in colab_05)"
+  },
+  "eval1_requirements": {
+    "labels": [
+      "activated",
+      "homeostatic",
+      "intermediate"
+    ],
+    "donor_held_out": true,
+    "reason": "activation pole is donor/study-confounded (see per_subcluster confounded flag); a non-donor-held-out probe could recover donor/study, not substate"
+  },
+  "uncaptured_programs": {
+    "MHC_II_antigen_presenting": [
+      "HLA-DRA",
+      "HLA-DRB1",
+      "CD74",
+      "CIITA"
+    ],
+    "note": "distinct activation state not scored by this axis"
+  },
+  "note": "expression-signature substate labels for the eval#1 probe; independent of FM embeddings (not circular). DAM-vs-homeostatic argmax abandoned after the first run (pan-microglial inflation + canonical-DAM-marker dropout). cl10 manually re-bucketed (sex confound, see nuisance_override); cl5/cl12 left as-is and documented (see known_nuisance_unconfounded)."
+}
