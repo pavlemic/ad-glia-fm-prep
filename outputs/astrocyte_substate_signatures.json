@@ -1,0 +1,434 @@
+{
+  "date": "2026-07-02",
+  "lineage": "astrocyte",
+  "axis": "reactive_DAA_GFAP_high_vs_resting",
+  "scoring": "per-gene z-score across all astrocytes (lognorm); pole = mean z; substate_axis = reactive - resting; cluster-level mean",
+  "signatures": {
+    "reactive": [
+      "GFAP",
+      "CD44",
+      "VIM",
+      "CHI3L1",
+      "SERPINA3"
+    ],
+    "resting": [
+      "SLC1A2",
+      "GLUL",
+      "GJA1",
+      "NRXN1"
+    ]
+  },
+  "present": {
+    "reactive": [
+      "GFAP",
+      "CD44",
+      "VIM",
+      "CHI3L1"
+    ],
+    "resting": [
+      "SLC1A2",
+      "GLUL",
+      "GJA1",
+      "NRXN1"
+    ]
+  },
+  "excluded_genes": {
+    "pan_astrocytic_inflators": [
+      "AQP4",
+      "SLC1A3",
+      "ALDH1L1"
+    ],
+    "mouse_only_or_dropout": [
+      "SERPINA3N",
+      "C4B",
+      "GBP2",
+      "OSMR"
+    ]
+  },
+  "intermediate_margin_zunits": 0.1,
+  "per_subcluster": [
+    {
+      "subcluster": "0",
+      "n": 10197,
+      "substate": "resting",
+      "axis_only_call": "resting",
+      "axis": -0.734,
+      "top_donor_frac": 0.082,
+      "top_study_frac": 0.49,
+      "confounded": false
+    },
+    {
+      "subcluster": "1",
+      "n": 7144,
+      "substate": "resting",
+      "axis_only_call": "resting",
+      "axis": -0.732,
+      "top_donor_frac": 0.126,
+      "top_study_frac": 0.5,
+      "confounded": false
+    },
+    {
+      "subcluster": "2",
+      "n": 7026,
+      "substate": "resting",
+      "axis_only_call": "resting",
+      "axis": -0.166,
+      "top_donor_frac": 0.232,
+      "top_study_frac": 0.761,
+      "confounded": true
+    },
+    {
+      "subcluster": "3",
+      "n": 6886,
+      "substate": "resting",
+      "axis_only_call": "resting",
+      "axis": -0.529,
+      "top_donor_frac": 0.223,
+      "top_study_frac": 0.494,
+      "confounded": false
+    },
+    {
+      "subcluster": "4",
+      "n": 6242,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 1.566,
+      "top_donor_frac": 0.085,
+      "top_study_frac": 0.599,
+      "confounded": false
+    },
+    {
+      "subcluster": "5",
+      "n": 5773,
+      "substate": "resting",
+      "axis_only_call": "resting",
+      "axis": -0.318,
+      "top_donor_frac": 0.14,
+      "top_study_frac": 0.825,
+      "confounded": true
+    },
+    {
+      "subcluster": "6",
+      "n": 4041,
+      "substate": "intermediate",
+      "axis_only_call": "intermediate",
+      "axis": 0.07,
+      "top_donor_frac": 0.382,
+      "top_study_frac": 0.807,
+      "confounded": true
+    },
+    {
+      "subcluster": "7",
+      "n": 3830,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 0.394,
+      "top_donor_frac": 0.058,
+      "top_study_frac": 0.713,
+      "confounded": true
+    },
+    {
+      "subcluster": "8",
+      "n": 3494,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 0.527,
+      "top_donor_frac": 0.244,
+      "top_study_frac": 0.946,
+      "confounded": true
+    },
+    {
+      "subcluster": "9",
+      "n": 3355,
+      "substate": "resting",
+      "axis_only_call": "resting",
+      "axis": -0.58,
+      "top_donor_frac": 0.201,
+      "top_study_frac": 0.758,
+      "confounded": true
+    },
+    {
+      "subcluster": "10",
+      "n": 3334,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 0.287,
+      "top_donor_frac": 0.274,
+      "top_study_frac": 0.765,
+      "confounded": true
+    },
+    {
+      "subcluster": "11",
+      "n": 3285,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 0.691,
+      "top_donor_frac": 0.254,
+      "top_study_frac": 0.439,
+      "confounded": false
+    },
+    {
+      "subcluster": "12",
+      "n": 3255,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 1.647,
+      "top_donor_frac": 0.143,
+      "top_study_frac": 0.747,
+      "confounded": true
+    },
+    {
+      "subcluster": "13",
+      "n": 2655,
+      "substate": "intermediate",
+      "axis_only_call": "intermediate",
+      "axis": 0.033,
+      "top_donor_frac": 0.5,
+      "top_study_frac": 0.518,
+      "confounded": true
+    },
+    {
+      "subcluster": "14",
+      "n": 2329,
+      "substate": "resting",
+      "axis_only_call": "resting",
+      "axis": -0.721,
+      "top_donor_frac": 0.717,
+      "top_study_frac": 0.879,
+      "confounded": true
+    },
+    {
+      "subcluster": "15",
+      "n": 2271,
+      "substate": "resting",
+      "axis_only_call": "resting",
+      "axis": -0.282,
+      "top_donor_frac": 0.544,
+      "top_study_frac": 0.88,
+      "confounded": true
+    },
+    {
+      "subcluster": "16",
+      "n": 2265,
+      "substate": "intermediate",
+      "axis_only_call": "intermediate",
+      "axis": -0.071,
+      "top_donor_frac": 0.341,
+      "top_study_frac": 0.46,
+      "confounded": false
+    },
+    {
+      "subcluster": "17",
+      "n": 2244,
+      "substate": "resting",
+      "axis_only_call": "resting",
+      "axis": -0.405,
+      "top_donor_frac": 0.368,
+      "top_study_frac": 0.838,
+      "confounded": true
+    },
+    {
+      "subcluster": "18",
+      "n": 1557,
+      "substate": "intermediate",
+      "axis_only_call": "intermediate",
+      "axis": -0.089,
+      "top_donor_frac": 0.429,
+      "top_study_frac": 0.761,
+      "confounded": true
+    },
+    {
+      "subcluster": "19",
+      "n": 1136,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 0.403,
+      "top_donor_frac": 0.981,
+      "top_study_frac": 0.996,
+      "confounded": true
+    },
+    {
+      "subcluster": "20",
+      "n": 1091,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 0.511,
+      "top_donor_frac": 0.928,
+      "top_study_frac": 0.966,
+      "confounded": true
+    },
+    {
+      "subcluster": "21",
+      "n": 922,
+      "substate": "resting",
+      "axis_only_call": "resting",
+      "axis": -0.838,
+      "top_donor_frac": 0.577,
+      "top_study_frac": 0.965,
+      "confounded": true
+    },
+    {
+      "subcluster": "22",
+      "n": 700,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 1.948,
+      "top_donor_frac": 0.546,
+      "top_study_frac": 0.803,
+      "confounded": true
+    },
+    {
+      "subcluster": "23",
+      "n": 653,
+      "substate": "intermediate",
+      "axis_only_call": "intermediate",
+      "axis": -0.043,
+      "top_donor_frac": 0.868,
+      "top_study_frac": 0.963,
+      "confounded": true
+    },
+    {
+      "subcluster": "24",
+      "n": 619,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 0.171,
+      "top_donor_frac": 0.939,
+      "top_study_frac": 0.966,
+      "confounded": true
+    },
+    {
+      "subcluster": "25",
+      "n": 543,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 0.485,
+      "top_donor_frac": 0.606,
+      "top_study_frac": 0.634,
+      "confounded": true
+    },
+    {
+      "subcluster": "26",
+      "n": 481,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 0.898,
+      "top_donor_frac": 0.96,
+      "top_study_frac": 0.992,
+      "confounded": true
+    },
+    {
+      "subcluster": "27",
+      "n": 455,
+      "substate": "reactive",
+      "axis_only_call": "reactive",
+      "axis": 0.804,
+      "top_donor_frac": 0.985,
+      "top_study_frac": 0.989,
+      "confounded": true
+    }
+  ],
+  "per_subcluster_assignment": {
+    "0": "resting",
+    "1": "resting",
+    "2": "resting",
+    "3": "resting",
+    "4": "reactive",
+    "5": "resting",
+    "6": "intermediate",
+    "7": "reactive",
+    "8": "reactive",
+    "9": "resting",
+    "10": "reactive",
+    "11": "reactive",
+    "12": "reactive",
+    "13": "intermediate",
+    "14": "resting",
+    "15": "resting",
+    "16": "intermediate",
+    "17": "resting",
+    "18": "intermediate",
+    "19": "reactive",
+    "20": "reactive",
+    "21": "resting",
+    "22": "reactive",
+    "23": "intermediate",
+    "24": "reactive",
+    "25": "reactive",
+    "26": "reactive",
+    "27": "reactive"
+  },
+  "per_subcluster_assignment_axis_only": {
+    "0": "resting",
+    "1": "resting",
+    "2": "resting",
+    "3": "resting",
+    "4": "reactive",
+    "5": "resting",
+    "6": "intermediate",
+    "7": "reactive",
+    "8": "reactive",
+    "9": "resting",
+    "10": "reactive",
+    "11": "reactive",
+    "12": "reactive",
+    "13": "intermediate",
+    "14": "resting",
+    "15": "resting",
+    "16": "intermediate",
+    "17": "resting",
+    "18": "intermediate",
+    "19": "reactive",
+    "20": "reactive",
+    "21": "resting",
+    "22": "reactive",
+    "23": "intermediate",
+    "24": "reactive",
+    "25": "reactive",
+    "26": "reactive",
+    "27": "reactive"
+  },
+  "colab05_cluster_verdicts": {
+    "22": "drop",
+    "42": "drop",
+    "45": "drop",
+    "33": "keep"
+  },
+  "nuisance_override": {},
+  "known_nuisance_unconfounded": {},
+  "reactive_bucket_heterogeneity_notes": {},
+  "eval1_requirements": {
+    "labels": [
+      "reactive",
+      "resting",
+      "intermediate"
+    ],
+    "donor_held_out": true,
+    "reason": "reactive pole may concentrate in donor/study-confounded subclusters (see per_subcluster confounded flag); a non-donor-held-out probe could recover donor/study, not substate"
+  },
+  "uncaptured_programs": {
+    "metallothionein_oxidative_stress": [
+      "MT1G",
+      "MT2A",
+      "MT1E"
+    ],
+    "complement_A1_like": [
+      "C3"
+    ],
+    "note": "distinct astrocyte reactive states not scored by the GFAP-high axis"
+  },
+  "note": "expression-signature substate labels for the eval#1 probe; independent of FM embeddings (not circular). Built with the colab_07 rebuilt method (z-scored continuous axis) from the start; canonical mouse-DAA not directly recoverable. Gene lists PROVISIONAL pending first-run dotplot validation. colab_05 ambient (cl22) + donor-effect (cl42/cl45) clusters dropped before subclustering.",
+  "qc_caveats": {
+    "5": {
+      "issue": "low-depth, elevated-ambient tail",
+      "n": 5773,
+      "median_counts": 1570,
+      "mean_ambient": 0.238,
+      "top_donor_frac": 0.14,
+      "top_study_frac": 0.825,
+      "substate": "resting",
+      "decision": "keep",
+      "reason": "not single-donor (unlike the cl22/42/45 precedent) -- spread across many donors, closer to a real population tail than a discrete technical artifact; clears the project's pre-registered QC floor (500 counts / 250 genes); lands in the low-stakes resting bucket; CPT on raw counts tolerates a noisier depth-tail far better than a supervised probe would."
+    }
+  }
+}

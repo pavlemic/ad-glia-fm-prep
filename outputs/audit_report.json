@@ -346,5 +346,25 @@
     },
     "substate_signatures_file": "outputs/microglia_substate_signatures.json",
     "cl44_verdict": "drop"
+  },
+  "astrocyte_subset": {
+    "status": "computed",
+    "date": "2026-07-02",
+    "n_astrocytes": 87783,
+    "n_subclusters": 28,
+    "subcluster_on": "X_scVI",
+    "substate_axis": "reactive_DAA_GFAP_high_vs_resting",
+    "substate_counts": {
+      "resting": 48147,
+      "reactive": 28465,
+      "intermediate": 11171
+    },
+    "substate_signatures_file": "outputs/astrocyte_substate_signatures.json",
+    "colab05_cluster_verdicts": {
+      "22": "drop",
+      "42": "drop",
+      "45": "drop",
+      "33": "keep"
+    }
   }
 }
