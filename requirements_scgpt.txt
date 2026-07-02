@@ -1,16 +1,19 @@
 # =============================================================================
-# ad-glia-fm-prep — FM env (Path A, decision 2026-05-28)
+# ad-glia-fm-prep — scGPT env (Option-B env split, 2026-07-03)
 #
-# Used by: zero-shot FM embedding notebooks, CPT/LoRA fine-tuning notebooks
-# (Geneformer + scGPT), eval notebooks (linear probe, APOE recovery,
-# catastrophic-forgetting probe).
+# Used by: the scGPT zero-shot + CPT/LoRA notebooks (colab_10, and the scGPT
+# regimes of colab_11+). scGPT 0.2.5 pins scvi-tools<1.0 and an older stack
+# (scanpy<2, etc.), which requires Python <3.11 -> this env needs a Python-3.10
+# runtime on Colab (kernel swap or a py310 conda env), UNLIKE the Geneformer
+# env which runs on native Python (see requirements_geneformer.txt).
 #
-# Python: 3.10 (highest version satisfying both Geneformer setup.py >=3.10
-# and scGPT pyproject.toml <4 with its pinned-old deps).
-# DO NOT install in same env as requirements_integration.txt.
+# This file was the former single "requirements_fm.txt"; it was split so that
+# Geneformer (no scvi-tools/scgpt dep, native Python) is no longer coupled to
+# scGPT's 3.10 constraint. DO NOT install in the same env as
+# requirements_geneformer.txt or requirements_integration.txt.
 #
 # Hand-off from integration env: h5ad files written by the integration env,
-# read by the FM env.
+# read by this env.
 # =============================================================================
 
 # Stable bottom — scGPT-constrained (scanpy <2, pandas <2 historically, etc.)
@@ -32,16 +35,8 @@ ipykernel==6.29.5
 scvi-tools==0.20.3             # last pre-1.0; required by scGPT 0.2.5
 scgpt==0.2.5
 
-# Geneformer V2 — install via git, NOT pypi. Add the following to the first
-# Colab cell:
-#   !git lfs install
-#   !git clone https://huggingface.co/ctheodoris/Geneformer
-#   !cd Geneformer && pip install .
-# Pin to a commit hash once the working setup is captured.
-
-# Transformers + adapters stack (TBD — Geneformer V2 setup.py leaves these
-# unpinned, accepts latest of each; first Colab install will resolve, then
-# pin via `!pip freeze`). Known hazards:
+# Transformers + adapters stack (TBD — resolved at first scGPT Colab install,
+# then pinned via `!pip freeze`). Known hazards:
 #   - peft must match transformers minor
 #   - accelerate must match transformers minor
 #   - huggingface_hub must match transformers
@@ -50,14 +45,7 @@ scgpt==0.2.5
 # huggingface_hub==TBD
 # peft==TBD
 # accelerate==TBD
-
-# Geneformer hard deps (leave unpinned at first install; capture after)
 # datasets==TBD               # scGPT pins <3
-# bitsandbytes==TBD           # Geneformer quantization
-# ray==TBD                    # Geneformer optuna integration
-# optuna==TBD
-# optuna-integration==TBD
-# loompy==TBD
 
 # torch: TBD — match Colab CUDA wheel. Range required: >=2.2 if flash-attn
 # is wanted (scGPT `fa2` extras), else >=1.13 to satisfy scGPT base.

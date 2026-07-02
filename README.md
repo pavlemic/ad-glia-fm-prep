@@ -62,6 +62,7 @@ ad-glia-fm-prep/
 ├── outputs/
 ├── docs/                       # postdoc clarifications, EVALUATION_CONTRACT.md
 ├── requirements_integration.txt  # Python 3.12, modern scvi-tools 1.4
-├── requirements_fm.txt           # Python 3.10, scGPT-constrained (scvi-tools <1.0)
+├── requirements_geneformer.txt   # native Python (>=3.10), Geneformer-only
+├── requirements_scgpt.txt        # Python 3.10, scGPT-constrained (scvi-tools <1.0)
 └── README.md
 ```

@@ -1,0 +1,41 @@
+# =============================================================================
+# ad-glia-fm-prep — Geneformer env (Option-B env split, 2026-07-03)
+#
+# Used by: the Geneformer zero-shot + CPT/LoRA notebooks (colab_09, and the
+# Geneformer regimes of colab_11+). Runs on Colab's NATIVE Python: Geneformer
+# setup.py requires only >=3.10 (3.12 fine) and does NOT depend on scvi-tools
+# or scgpt, so no runtime downgrade is needed.
+#
+# scGPT — which pins an older <3.11 stack (scvi-tools<1.0) — lives in the
+# separate requirements_scgpt.txt (colab_10). DO NOT install both in one env.
+# This split replaced the earlier single "requirements_fm.txt" FM env once the
+# Colab default runtime moved to Python 3.12 and the 3.10 kernel-swap proved
+# unreliable; Geneformer never needed 3.10, so only scGPT is isolated.
+#
+# Hand-off from the integration env: h5ad files written there, read here.
+# =============================================================================
+
+# Geneformer V2 is installed via git in the notebook (NOT pypi):
+#   !git lfs install
+#   !git clone https://huggingface.co/ctheodoris/Geneformer
+#   !cd Geneformer && pip install .
+# That `pip install .` pulls Geneformer's own deps (anndata, scanpy,
+# scikit-learn, matplotlib, numpy, pandas, torch, transformers, peft, datasets,
+# bitsandbytes, ray, optuna, ...). Pin all of them + the Geneformer commit via
+# `pip freeze` after the first clean run (colab_09 §2a), then lock this file.
+
+# Keep numpy on the 1.x line (matches the rest of the project; avoids numpy-2
+# surprises with Geneformer's older transitive deps). Installed before the
+# Geneformer clone so pip keeps 1.x through its resolution.
+numpy==1.26.4
+
+# Runtime niceties the notebooks use directly beyond Geneformer's install_requires.
+psutil
+
+# Heavy stack left unpinned until the first install resolves it (see note above):
+# transformers==TBD
+# torch==TBD               # match Colab CUDA wheel
+# peft==TBD                # must match transformers minor
+# accelerate==TBD          # must match transformers minor
+# datasets==TBD
+# huggingface_hub==TBD     # must match transformers
