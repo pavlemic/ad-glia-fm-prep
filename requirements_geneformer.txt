@@ -56,11 +56,27 @@
 # Runtime nicety the notebooks use directly beyond Geneformer's install_requires.
 psutil
 
+# ---------------------------------------------------------------------------
+# TRANSFORMERS v5 PIN — 2026-07-04. Geneformer's setup.py leaves `transformers`
+# completely unconstrained, so on the first real run pip resolved v5, which
+# broke Geneformer's own geneformer/collator_for_classification.py: it imports
+# `SpecialTokensMixin` directly from the transformers top level, but v5 merged
+# that class into PreTrainedTokenizerBase and dropped the standalone export
+# (see MIGRATION_GUIDE_V5.md). This is an upstream Geneformer/transformers
+# version lag, not a numpy or platform issue — the numpy-2 diagnosis above
+# still holds. Pin to the last pre-v5 release; installed here BEFORE
+# Geneformer's `pip install .`, so pip's resolver leaves it alone (Geneformer's
+# own unconstrained requirement is satisfied by any installed version).
+# If peft/accelerate/datasets (also unconstrained in Geneformer's setup.py)
+# turn out to require transformers>=5, pip will raise a resolver conflict here
+# instead of the silent runtime break above — that's the useful failure mode.
+transformers==4.57.0
+# ---------------------------------------------------------------------------
+
 # Heavy stack left unpinned until the first clean run resolves it (see note
 # above); fill in from §2a's pip freeze, then lock:
 # numpy==TBD                # expect 2.0.x (Colab base); do NOT pin below 2.0
 # scipy==TBD                # expect 1.16.x (Colab base)
-# transformers==TBD
 # torch==TBD                # match Colab CUDA wheel
 # peft==TBD                 # must match transformers minor
 # accelerate==TBD           # must match transformers minor
