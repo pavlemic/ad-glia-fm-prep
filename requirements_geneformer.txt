@@ -73,6 +73,24 @@ psutil
 transformers==4.57.0
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# DATASETS VIDEOREADER PIN — 2026-07-04. §5b (EmbExtractor.extract_embs, which
+# uses a `datasets`-backed torch Dataset under the hood) crashed with
+# `ImportError: cannot import name 'VideoReader' from 'torchvision.io'`.
+# Root cause: torchvision >=0.24 removed its video-decoding API (VideoReader
+# et al.) entirely in favor of TorchCodec, but the `datasets` version that
+# Geneformer's unconstrained install resolved still does an UNGUARDED
+# `from torchvision.io import VideoReader` in
+# formatting/torch_formatter.py._tensorize whenever torchvision happens to be
+# importable — we never touch video data, torchvision is only in sys.modules
+# as a side effect of another import in the chain. Confirmed the tagged
+# datasets==5.0.0 source wraps that import in try/except ImportError (fixed
+# upstream); pin to it. Installed here before Geneformer's `pip install .`,
+# same "unconstrained dep, installed first, resolver leaves it alone" logic
+# as the transformers pin above.
+datasets==5.0.0
+# ---------------------------------------------------------------------------
+
 # Heavy stack left unpinned until the first clean run resolves it (see note
 # above); fill in from §2a's pip freeze, then lock:
 # numpy==TBD                # expect 2.0.x (Colab base); do NOT pin below 2.0
@@ -80,5 +98,4 @@ transformers==4.57.0
 # torch==TBD                # match Colab CUDA wheel
 # peft==TBD                 # must match transformers minor
 # accelerate==TBD           # must match transformers minor
-# datasets==TBD
 # huggingface_hub==TBD      # must match transformers
