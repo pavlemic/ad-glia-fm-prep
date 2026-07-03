@@ -1,5 +1,6 @@
 # =============================================================================
-# ad-glia-fm-prep — Geneformer env (Option-B env split, 2026-07-03)
+# ad-glia-fm-prep — Geneformer env (Option-B env split, 2026-07-03;
+#                                   numpy-2 realignment 2026-07-04)
 #
 # Used by: the Geneformer zero-shot + CPT/LoRA notebooks (colab_09, and the
 # Geneformer regimes of colab_11+). Runs on Colab's NATIVE Python: Geneformer
@@ -15,6 +16,34 @@
 # Hand-off from the integration env: h5ad files written there, read here.
 # =============================================================================
 
+# ---------------------------------------------------------------------------
+# NUMPY POLICY — RIDE COLAB'S NATIVE numpy-2 BASE. DO NOT force numpy 1.x here.
+#
+# History (2026-07-04): the first draft of this file pinned numpy==1.26.4 to
+# "avoid numpy-2 surprises." That pin was a pre-commitment from May 2026, made
+# before Colab's base image moved to a numpy-2-native scientific stack. On the
+# first real run it caused TWO cascading failures, both of them artifacts of
+# fighting the platform, not of Geneformer:
+#   1. scipy 1.16.3 (Colab's default) + forced numpy 1.26.4 = scipy/scipy#22877
+#      ("sph_legendre_p ... All ufuncs must have type numpy.ufunc" on import) —
+#      a bug specific to the scipy>=1.15 + numpy==1.26.4 combination.
+#   2. After Geneformer's `pip install .` bumped numpy to 2.0.2, a helper in
+#      scanpy's import chain was left at a pre-numpy-2 version and raised
+#      `AttributeError: module 'numpy' has no attribute 'bool'`.
+# Decisive fact: Geneformer's own installer CHOSE numpy 2.0.2 (its setup.py does
+# not cap numpy<2), and its heavy deps (transformers 5.x, torch 2.11, datasets
+# 4.0) are all numpy-2 native. numpy 1.26 is EOL per SPEC-0. So nothing in this
+# pipeline actually needs numpy 1.x — we let Colab's coherent numpy-2 base stand
+# (numpy 2.0.2 / scipy 1.16.x / scanpy 1.12.x / anndata 0.12.x) and install
+# Geneformer on top of it. No numpy pin, no scipy pin, no constraints file.
+#
+# REPRODUCIBILITY: this file therefore under-specifies on purpose until the
+# first clean run. colab_09 §2a does `pip freeze` and records the exact resolved
+# numpy-2 stack + Geneformer commit; copy those pins back here and lock the file
+# AFTER a green run. (Same freeze-then-lock plan as before — only the numpy
+# target changed from 1.x to 2.x.)
+# ---------------------------------------------------------------------------
+
 # Geneformer V2 is installed via git in the notebook (NOT pypi):
 #   !git lfs install
 #   !git clone https://huggingface.co/ctheodoris/Geneformer
@@ -24,27 +53,16 @@
 # bitsandbytes, ray, optuna, ...). Pin all of them + the Geneformer commit via
 # `pip freeze` after the first clean run (colab_09 §2a), then lock this file.
 
-# Keep numpy on the 1.x line (matches the rest of the project; avoids numpy-2
-# surprises with Geneformer's older transitive deps). Installed before the
-# Geneformer clone so pip keeps 1.x through its resolution.
-numpy==1.26.4
-
-# Pin scipy below 1.15: scipy 1.15.0 shipped a broken MultiUFunc check for the
-# new sph_legendre_p function that raises `ValueError: All ufuncs must have
-# type numpy.ufunc` on import when paired with numpy 1.26.4 (scipy/scipy#22877,
-# confirmed 2026-07-04 on Colab's native runtime, which pre-bakes scipy 1.16.x).
-# scipy 1.14.x does not have the bug. Without this pin, `pip install -r` leaves
-# Colab's pre-installed broken scipy in place because the requirement is
-# otherwise unconstrained.
-scipy==1.14.1
-
-# Runtime niceties the notebooks use directly beyond Geneformer's install_requires.
+# Runtime nicety the notebooks use directly beyond Geneformer's install_requires.
 psutil
 
-# Heavy stack left unpinned until the first install resolves it (see note above):
+# Heavy stack left unpinned until the first clean run resolves it (see note
+# above); fill in from §2a's pip freeze, then lock:
+# numpy==TBD                # expect 2.0.x (Colab base); do NOT pin below 2.0
+# scipy==TBD                # expect 1.16.x (Colab base)
 # transformers==TBD
-# torch==TBD               # match Colab CUDA wheel
-# peft==TBD                # must match transformers minor
-# accelerate==TBD          # must match transformers minor
+# torch==TBD                # match Colab CUDA wheel
+# peft==TBD                 # must match transformers minor
+# accelerate==TBD           # must match transformers minor
 # datasets==TBD
-# huggingface_hub==TBD     # must match transformers
+# huggingface_hub==TBD      # must match transformers
