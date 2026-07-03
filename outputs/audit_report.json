@@ -366,5 +366,72 @@
       "45": "drop",
       "33": "keep"
     }
+  },
+  "geneformer_zeroshot": {
+    "status": "computed",
+    "date": "2026-07-03",
+    "model_dir": "Geneformer-V2-104M",
+    "geneformer_commit": "04c2b2e84da7c0f385c3f9ad8f3ec24bab6650e5",
+    "n_cells": 142588,
+    "emb_dim": 768,
+    "vocab_audit": {
+      "n_genes_panel": 26514,
+      "n_mapped_ensembl": 19400,
+      "n_in_vocab": 16792,
+      "frac_in_vocab": 0.6333,
+      "niche_status": {
+        "APOE": {
+          "in_panel": true,
+          "ensembl": "ENSG00000130203",
+          "in_vocab": true
+        },
+        "TREM2": {
+          "in_panel": true,
+          "ensembl": "ENSG00000095970",
+          "in_vocab": true
+        },
+        "MS4A6A": {
+          "in_panel": true,
+          "ensembl": "ENSG00000110077",
+          "in_vocab": true
+        },
+        "CLU": {
+          "in_panel": true,
+          "ensembl": "ENSG00000120885",
+          "in_vocab": true
+        },
+        "GFAP": {
+          "in_panel": true,
+          "ensembl": "ENSG00000131095",
+          "in_vocab": true
+        },
+        "AQP4": {
+          "in_panel": true,
+          "ensembl": "ENSG00000171885",
+          "in_vocab": true
+        },
+        "AIF1": {
+          "in_panel": true,
+          "ensembl": "ENSG00000204472",
+          "in_vocab": true
+        },
+        "CSF1R": {
+          "in_panel": true,
+          "ensembl": "ENSG00000182578",
+          "in_vocab": true
+        }
+      },
+      "niche_warnings": [],
+      "apoe_hard_fail_gate": "passed"
+    },
+    "zeroshot_silhouettes": {
+      "lineage_all": 0.2083,
+      "study_all": 0.0442,
+      "apoe_micro": 0.0062,
+      "apoe_astro": -0.0016,
+      "substate_micro": -0.0192,
+      "substate_astro": -0.0343
+    },
+    "embedding_file": "geneformer/glia_geneformer_zeroshot.h5ad"
   }
 }

@@ -91,11 +91,16 @@ transformers==4.57.0
 datasets==5.0.0
 # ---------------------------------------------------------------------------
 
-# Heavy stack left unpinned until the first clean run resolves it (see note
-# above); fill in from §2a's pip freeze, then lock:
-# numpy==TBD                # expect 2.0.x (Colab base); do NOT pin below 2.0
-# scipy==TBD                # expect 1.16.x (Colab base)
-# torch==TBD                # match Colab CUDA wheel
-# peft==TBD                 # must match transformers minor
-# accelerate==TBD           # must match transformers minor
-# huggingface_hub==TBD      # must match transformers
+# RESOLVED by the first clean run (colab_09, 2026-07-03; A100-80GB, CUDA 12.8,
+# Geneformer commit 04c2b2e). Recorded here as DOCUMENTATION, deliberately NOT
+# hard-pinned: the NUMPY POLICY above says ride Colab's coherent numpy-2 base
+# rather than force the scientific stack, and torch below is a CUDA-specific
+# local wheel (+cu128) that would break the install if Colab's CUDA drifts.
+# The exact, complete lock for the Methods record lives in
+# outputs/software_versions/colab_09_2026-07-03_pip_freeze.txt (+ _env.json).
+# If a future run needs bit-identical reproduction, install from that freeze.
+#   numpy 2.0.2   scipy 1.16.3   scanpy 1.12.2   anndata 0.12.19
+#   torch 2.11.0+cu128   peft 0.19.1   accelerate 1.14.0
+#   huggingface-hub 0.36.2   tokenizers 0.22.2
+# Only the two correctness-critical, version-fragile packages stay hard-pinned
+# (transformers 4.57.0 + datasets 5.0.0, above) — everything else rides Colab.
