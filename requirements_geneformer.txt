@@ -29,6 +29,15 @@
 # Geneformer clone so pip keeps 1.x through its resolution.
 numpy==1.26.4
 
+# Pin scipy below 1.15: scipy 1.15.0 shipped a broken MultiUFunc check for the
+# new sph_legendre_p function that raises `ValueError: All ufuncs must have
+# type numpy.ufunc` on import when paired with numpy 1.26.4 (scipy/scipy#22877,
+# confirmed 2026-07-04 on Colab's native runtime, which pre-bakes scipy 1.16.x).
+# scipy 1.14.x does not have the bug. Without this pin, `pip install -r` leaves
+# Colab's pre-installed broken scipy in place because the requirement is
+# otherwise unconstrained.
+scipy==1.14.1
+
 # Runtime niceties the notebooks use directly beyond Geneformer's install_requires.
 psutil
 
