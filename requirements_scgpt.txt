@@ -1,56 +1,108 @@
 # =============================================================================
-# ad-glia-fm-prep — scGPT env (Option-B env split, 2026-07-03)
+# ad-glia-fm-prep — scGPT env (Option-B env split, 2026-07-03;
+#                              native-Python / --no-deps realignment 2026-07-04)
 #
 # Used by: the scGPT zero-shot + CPT/LoRA notebooks (colab_10, and the scGPT
-# regimes of colab_11+). scGPT 0.2.5 pins scvi-tools<1.0 and an older stack
-# (scanpy<2, etc.), which requires Python <3.11 -> this env needs a Python-3.10
-# runtime on Colab (kernel swap or a py310 conda env), UNLIKE the Geneformer
-# env which runs on native Python (see requirements_geneformer.txt).
+# regimes of colab_11+). Like the Geneformer env, this now runs on Colab's
+# NATIVE Python — NO Python-3.10 runtime swap. See the REVERSAL note below.
 #
-# This file was the former single "requirements_fm.txt"; it was split so that
-# Geneformer (no scvi-tools/scgpt dep, native Python) is no longer coupled to
-# scGPT's 3.10 constraint. DO NOT install in the same env as
-# requirements_geneformer.txt or requirements_integration.txt.
+# DO NOT install in the same env as requirements_geneformer.txt or
+# requirements_integration.txt (kept separate on purpose).
 #
-# Hand-off from integration env: h5ad files written by the integration env,
-# read by this env.
+# Hand-off from the integration env: h5ad files written there, read here.
 # =============================================================================
 
-# Stable bottom — scGPT-constrained (scanpy <2, pandas <2 historically, etc.)
-scanpy==1.9.8                  # scGPT pins <2.0.0
-anndata==0.10.9
-leidenalg==0.10.2
-igraph==0.11.6
-umap-learn==0.5.6
-numpy==1.26.4
-pandas==2.2.3
-scipy==1.13.1
-matplotlib==3.9.2
-seaborn==0.13.2
-scikit-learn==1.5.2
-jupyter==1.1.1
-ipykernel==6.29.5
+# ---------------------------------------------------------------------------
+# REVERSAL — 2026-07-04. The previous version of this file pinned the full old
+# scGPT stack (scgpt 0.2.5 + scvi-tools==0.20.3 + scanpy==1.9.8 + numpy 1.26.4,
+# etc.) and declared this env needed a Python-3.10 runtime on Colab, because
+# scGPT's PACKAGING declares scvi-tools<1.0 (which caps Python <3.11). That plan
+# was abandoned: Colab's default runtime moved to Python 3.12 and every attempt
+# to obtain a real 3.10 kernel on Colab (condacolab, colab-python-version) was
+# unreliable.
+#
+# Decisive fact (from reading the scGPT source at the pinned commit, not its
+# packaging): scGPT's DECLARED dependencies are far broader than what its
+# load+embed code actually IMPORTS.
+#   - scvi-tools : declared in pyproject, imported NOWHERE in the package. Phantom.
+#   - torchtext  : guarded by scgpt/tokenizer/vocab_compat.py — falls back to a
+#                  pure-Python gene Vocab when torchtext is absent. Loading a
+#                  pretrained vocab.json never touches it.
+#   - flash-attn : guarded by scgpt/model/flash_attn_compat.py — falls back to
+#                  standard PyTorch attention (identical maths, slower).
+#   - scib       : imported inside a function (eval_scib_metrics), off the
+#                  embedding path entirely.
+# So scGPT is installed with `--no-deps` from a pinned commit, and only the
+# packages its import chain really needs are added on top of Colab's native
+# base. The old scvi-tools<1.0 -> Python-3.10 chain simply does not apply.
+#
+# NOTE: this native-Python approach is validated by colab_10 §1–§5 running
+# green (import scgpt + embed). Until that run is confirmed, treat this file as
+# the intended env, not a proven one. (Same freeze-then-lock discipline as the
+# Geneformer env: it under-specifies on purpose until the first clean run.)
+# ---------------------------------------------------------------------------
 
-# Hard-pinned to resolve the scGPT × scvi-tools conflict
-scvi-tools==0.20.3             # last pre-1.0; required by scGPT 0.2.5
-scgpt==0.2.5
+# ---------------------------------------------------------------------------
+# NUMPY POLICY — RIDE COLAB'S NATIVE numpy-2 BASE. DO NOT force numpy 1.x here.
+# Same policy and reasoning as requirements_geneformer.txt: the May-2026
+# numpy==1.26.4 pre-commitment fought Colab's numpy-2-native base and caused
+# cascading import failures. scGPT at the pinned commit was modernized for
+# CUDA 12.8 (2026-04-27) and is numpy-2 compatible; nothing here needs numpy 1.x.
+# No numpy pin, no scipy pin, no constraints file — Colab's coherent numpy-2
+# stack (numpy 2.x / scipy 1.16.x / scanpy 1.12.x / anndata 0.12.x) stands.
+# ---------------------------------------------------------------------------
 
-# Transformers + adapters stack (TBD — resolved at first scGPT Colab install,
-# then pinned via `!pip freeze`). Known hazards:
-#   - peft must match transformers minor
-#   - accelerate must match transformers minor
-#   - huggingface_hub must match transformers
-# Stubs:
-# transformers==TBD
-# huggingface_hub==TBD
-# peft==TBD
-# accelerate==TBD
-# datasets==TBD               # scGPT pins <3
+# ---------------------------------------------------------------------------
+# scGPT is installed via git with --no-deps IN THE NOTEBOOK (NOT here, and NOT
+# from pypi — pypi tops out at 0.2.4; the compat shims above are only on the
+# git 0.2.5 source). colab_10 §1a runs:
+#
+#   SCGPT_COMMIT = "cebd6fae655b9c585a4807daa3ac31bb764f06b4"   # CUDA-12.8 / FA2 compat, 2026-04-27
+#   !pip install --no-deps "git+https://github.com/bowang-lab/scGPT.git@{SCGPT_COMMIT}"
+#
+# --no-deps CANNOT be expressed per-line in a requirements file (it is a global
+# pip flag), which is why the scgpt line lives in the notebook. This file holds
+# only the handful of real runtime deps that Colab does NOT preinstall and that
+# scGPT's import chain needs. Everything else scGPT imports at module level
+# (torch, numpy, pandas, scipy, scikit-learn, numba, matplotlib, seaborn,
+# networkx, tqdm) is already in Colab's base image — do not re-pin it here.
+#
+# flash-attn is deliberately NOT installed (PyTorch-attention fallback). It is
+# an optional speed upgrade only; if added later, use a CUDA-12.8 FA2 wheel and
+# pin it in outputs/software_versions, not here.
+#
+# The pretrained checkpoint (whole-human: vocab.json / args.json / best_model.pt)
+# is downloaded to Drive in colab_10 §1a via gdown — it is a data artifact, not
+# a pip dependency.
+# ---------------------------------------------------------------------------
 
-# torch: TBD — match Colab CUDA wheel. Range required: >=2.2 if flash-attn
-# is wanted (scGPT `fa2` extras), else >=1.13 to satisfy scGPT base.
-# torch==TBD
+# Real runtime deps not preinstalled on Colab's base (installable via
+# `pip install -r`):
+scanpy                          # not in Colab base; float on Colab's coherent stack
+anndata                         # not in Colab base; float
+psutil                          # RAM logging helper the notebooks use directly
 
-# flash-attn: TBD — CUDA-pinned wheel. Optional; install only after torch
-# is pinned. scGPT `fa2` group requires >=2.8.
-# flash-attn==TBD
+# datasets==5.0.0 — HARD PIN, but for an unusual reason: `import scgpt` eagerly
+# imports scgpt.scbank, which does `from datasets import Dataset, load_dataset`
+# at module load, so the NAME must resolve for the import to succeed. scGPT's
+# packaging asks for datasets>=2.20,<3, but (a) the zero-shot embedding path
+# never actually CALLS scbank/datasets, so only the import needs to work, and
+# (b) 2.x fights Colab's py3.12/numpy-2 base. 5.0.0 is the version already
+# validated in the Geneformer env (colab_09) and it exposes both names — pinned
+# here for that import + cross-FM-env consistency. If `import scgpt` ever fails
+# specifically on datasets, that is the first knob to turn (colab_10 §1b names
+# the fallback).
+datasets==5.0.0
+
+# ---------------------------------------------------------------------------
+# RESOLVED by the first clean run — TO BE FILLED after colab_10 runs green.
+# Recorded here as DOCUMENTATION, deliberately NOT hard-pinned (NUMPY POLICY
+# above; torch is a CUDA-specific +cu128 local wheel that breaks the install if
+# Colab's CUDA drifts). The exact, complete lock for the Methods record will
+# live in outputs/software_versions/colab_10_<date>_pip_freeze.txt (+ _env.json).
+# After a green run, copy the resolved versions below and lock the scGPT commit.
+#   scgpt <commit cebd6fa>   numpy <2.x>   scipy <1.16.x>
+#   scanpy <1.12.x>   anndata <0.12.x>   torch <2.x+cu128>   datasets 5.0.0
+# Only datasets stays hard-pinned (import-critical + fragile); everything else
+# rides Colab's base.
+# ---------------------------------------------------------------------------
