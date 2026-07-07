@@ -40,6 +40,11 @@
 # green (import scgpt + embed). Until that run is confirmed, treat this file as
 # the intended env, not a proven one. (Same freeze-then-lock discipline as the
 # Geneformer env: it under-specifies on purpose until the first clean run.)
+#
+# UPDATE 2026-07-07 — §1–§2 gate CONFIRMED GREEN (`import scgpt`/`scanpy`/
+# `anndata` all resolve natively). One extra fix was needed beyond the above:
+# see the typing_extensions pin below. §3–§7 (load, vocab audit, embed) not yet
+# run — this file is proven through import only, not through embedding.
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
@@ -93,6 +98,19 @@ psutil                          # RAM logging helper the notebooks use directly
 # specifically on datasets, that is the first knob to turn (colab_10 §1b names
 # the fallback).
 datasets==5.0.0
+
+# typing_extensions>=4.16.0 — HARD PIN, found 2026-07-07. Colab's base shipped
+# anndata 0.13.0 alongside typing_extensions 4.15.0, but anndata 0.13.0's
+# `anndata/acc/__init__.py` does `from typing_extensions import sentinel`,
+# which 4.15.0 doesn't have (only the older `Sentinel` class) -> ImportError
+# kills anndata -> kills scanpy (imports anndata.logging) -> kills scgpt
+# (imports AnnData). Nothing to do with scGPT's own stack; a Colab-native-base
+# version-skew, same failure class as colab_09's transformers/torchvision
+# breaks. Fix: upgrade to 4.16.0+ (first version with `sentinel`). Listing it
+# explicitly here (rather than leaving it an unpinned transitive dep) is what
+# makes pip actually upgrade it instead of treating Colab's stale 4.15.0 as
+# already satisfying anndata's requirement.
+typing_extensions>=4.16.0
 
 # ---------------------------------------------------------------------------
 # RESOLVED by the first clean run — TO BE FILLED after colab_10 runs green.
