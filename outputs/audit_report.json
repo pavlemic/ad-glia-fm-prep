@@ -433,5 +433,64 @@
       "substate_astro": -0.0343
     },
     "embedding_file": "geneformer/glia_geneformer_zeroshot.h5ad"
+  },
+  "scgpt_zeroshot": {
+    "status": "computed",
+    "date": "2026-07-08",
+    "model_dir": "scgpt_whole_human",
+    "scgpt_commit": "cebd6fae655b9c585a4807daa3ac31bb764f06b4",
+    "n_cells": 142588,
+    "emb_dim": 512,
+    "vocab_audit": {
+      "vocab_size": 60697,
+      "n_genes_panel": 26514,
+      "n_in_vocab": 19977,
+      "frac_in_vocab": 0.7535,
+      "niche_status": {
+        "APOE": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "TREM2": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "MS4A6A": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "CLU": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "GFAP": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "AQP4": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "AIF1": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "CSF1R": {
+          "in_panel": true,
+          "in_vocab": true
+        }
+      },
+      "niche_warnings": [],
+      "apoe_hard_fail_gate": "passed"
+    },
+    "zeroshot_silhouettes": {
+      "lineage_all": 0.438,
+      "study_all": -0.0023,
+      "apoe_micro": 0.0058,
+      "apoe_astro": 0.0001,
+      "substate_micro": 0.013,
+      "substate_astro": 0.0283
+    },
+    "embedding_file": "scgpt/glia_scgpt_zeroshot.h5ad"
   }
 }
