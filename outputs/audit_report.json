@@ -492,5 +492,73 @@
       "substate_astro": 0.0283
     },
     "embedding_file": "scgpt/glia_scgpt_zeroshot.h5ad"
+  },
+  "crossfm_zeroshot_comparison": {
+    "status": "computed",
+    "date": "2026-07-08",
+    "notebook": "colab_10b_crossfm_zeroshot_comparison",
+    "n_cells": 142588,
+    "compared": {
+      "Geneformer": {
+        "emb_dim": 768,
+        "frac_in_vocab": 0.6333
+      },
+      "scGPT": {
+        "emb_dim": 512,
+        "frac_in_vocab": 0.7535
+      }
+    },
+    "silhouettes": {
+      "Geneformer": {
+        "lineage_all": 0.2083,
+        "study_all": 0.0442,
+        "study_micro": 0.0846,
+        "study_astro": 0.0501,
+        "apoe_micro": 0.0062,
+        "apoe_astro": -0.0016,
+        "substate_micro": -0.0192,
+        "substate_astro": -0.0343
+      },
+      "scGPT": {
+        "lineage_all": 0.438,
+        "study_all": -0.0023,
+        "study_micro": 0.0255,
+        "study_astro": 0.0529,
+        "apoe_micro": 0.0058,
+        "apoe_astro": 0.0001,
+        "substate_micro": 0.013,
+        "substate_astro": 0.0283
+      }
+    },
+    "seaad_gradient": {
+      "Geneformer|microglia": {
+        "overall": 0.5029103184016057,
+        "spread": 0.9998175348964511,
+        "rho": -0.8652134174602073,
+        "abs_rho": 0.8652134174602073,
+        "p": 0.0
+      },
+      "Geneformer|astrocyte": {
+        "overall": 0.5476231160930932,
+        "spread": 1.0,
+        "rho": -0.8619585701117987,
+        "abs_rho": 0.8619585701117987,
+        "p": 0.0
+      },
+      "scGPT|microglia": {
+        "overall": 0.5029103184016057,
+        "spread": 0.9533801660432443,
+        "rho": -0.7153671143831352,
+        "abs_rho": 0.7153671143831352,
+        "p": 0.0
+      },
+      "scGPT|astrocyte": {
+        "overall": 0.5476231160930932,
+        "spread": 0.9348977615765791,
+        "rho": -0.7082143051111031,
+        "abs_rho": 0.7082143051111031,
+        "p": 0.0
+      }
+    }
   }
 }
