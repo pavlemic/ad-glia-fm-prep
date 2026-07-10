@@ -91,6 +91,20 @@ transformers==4.57.0
 datasets==5.0.0
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# TORCHAO REMOVAL — 2026-07-10 (colab_11 §5a). Colab preinstalls torchao 0.10.0,
+# which this pipeline never uses (no quantization, plain LoRA via peft). peft's
+# get_peft_model dispatches every target Linear through dispatch_torchao(),
+# which calls is_torchao_available() — confirmed against peft 0.19.1 source
+# (peft/import_utils.py): if torchao is merely *importable*, that function
+# hard-raises ImportError below its 0.16.0 floor instead of returning False.
+# This is not expressible as a requirements.txt pin (there is nothing to
+# require — we want it ABSENT), so the notebook runs
+# `!pip uninstall -y torchao -q` after Geneformer's `pip install .` (§1a).
+# Uninstalling rather than upgrading to >=0.16.0 avoids adding a new floated
+# dependency with its own torch-version coupling for a package never used.
+# ---------------------------------------------------------------------------
+
 # RESOLVED by the first clean run (colab_09, 2026-07-03; A100-80GB, CUDA 12.8,
 # Geneformer commit 04c2b2e). Recorded here as DOCUMENTATION, deliberately NOT
 # hard-pinned: the NUMPY POLICY above says ride Colab's coherent numpy-2 base
