@@ -561,7 +561,7 @@
       }
     }
   },
-  "geneformer_cpt_aggregated": {
+  "geneformer_cpt_aggregated_pilot_v1": {
     "status": "computed",
     "date": "2026-07-10",
     "regime": "aggregated",
@@ -575,7 +575,11 @@
       "r": 8,
       "alpha": 16,
       "dropout": 0.05,
-      "targets": ["query", "key", "value"]
+      "targets": [
+        "query",
+        "key",
+        "value"
+      ]
     },
     "train": {
       "max_steps": 2000,
