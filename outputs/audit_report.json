@@ -601,5 +601,47 @@
     "donor_metadata_file": null,
     "donor_split_file": null,
     "donor_split_note": "outputs/donor_metadata.csv and outputs/donor_split.json were minted in the ephemeral Colab clone but never downloaded/committed (runtime ended before retrieval) -- not recovered by design decision 2026-07-11: the split-selection algorithm (colab_11 SS3b: study_id-stratified train_test_split, seed search over range(200) maximizing worst-case test-donor margin) is a deterministic function of the unchanged colab_05 parent object, so any future notebook that runs SS3b verbatim reproduces this identical split without needing the file. The realized values are fully recorded here and in the executed notebook's SS3b interpretation cell: seed 32, worst-case margin 10, donors train/val/test 101/22/22, cells 94963/23824/23801, study fractions in test SEA-AD 0.567/Li2025 0.30/Haney2024 0.133. Project is not publication-track, so the committed-file audit trail was judged non-essential; see docs/EVALUATION_CONTRACT.md 'Held-out split verification' for the substitute safeguard."
+  },
+  "geneformer_cpt_aggregated_v2": {
+    "status": "computed",
+    "date": "2026-07-15",
+    "regime": "aggregated",
+    "seed": 0,
+    "model_dir": "Geneformer-V2-104M",
+    "geneformer_commit": "04c2b2e84da7c0f385c3f9ad8f3ec24bab6650e5",
+    "n_cells": 142588,
+    "n_train_cells": 94963,
+    "emb_dim": 768,
+    "lora": {
+      "r": 8,
+      "alpha": 16,
+      "dropout": 0.05,
+      "targets": [
+        "query",
+        "key",
+        "value",
+        "dense"
+      ]
+    },
+    "train": {
+      "max_steps": 2000,
+      "grad_accum": 4,
+      "lr": 0.0005,
+      "batch": 8,
+      "mlm_prob": 0.15,
+      "train_loss": 2.0921
+    },
+    "detector_1": {
+      "drift_all": 0.005045115947723389,
+      "drift_test": 0.005061626434326172,
+      "threshold": 0.05,
+      "gate": "held-out test",
+      "registered": false
+    },
+    "adapter_file": "geneformer/cpt_aggregated_v2_seed0_adapter",
+    "embedding_file": "geneformer/glia_geneformer_cpt_aggregated_v2_seed0.h5ad",
+    "donor_metadata_file": "outputs/donor_metadata.csv",
+    "donor_split_file": "outputs/donor_split.json",
+    "prior_run": "geneformer_cpt_aggregated_pilot_v1"
   }
 }
