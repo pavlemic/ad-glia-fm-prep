@@ -149,7 +149,7 @@ These are **go/no-go sanity checks**, run before interpreting any eval. Detector
 |---|---|---|
 | Provisional draft | (this commit) | 2026-06-16 |
 | Eval #1 label source resolved (microglia) + relabel DAM→activated + confound clause | (this commit) | 2026-06-19 |
-| Post-pilot refinement (detector #1 only — reporting-only reframe, `>0.05` bar dropped; eval#1-3/detector#2 bands untouched, pending their own pilot runs) | TBD | 2026-07-16 |
+| Post-pilot refinement (detector #1 only — reporting-only reframe, `>0.05` bar dropped; eval#1-3/detector#2 bands untouched, pending their own pilot runs) | (this commit) | 2026-07-16 |
 | Permanent lock | TBD | TBD |
 
 This file is the artifact a reviewer (postdoc, or Harvard) inspects to confirm the CPT conclusions were committed to in advance.
