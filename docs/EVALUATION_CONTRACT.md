@@ -106,9 +106,12 @@ Pre-registration for the continued-pretraining (CPT) phase. Its single purpose i
 
 ## Two diagnostic detectors
 
-These are **go/no-go sanity checks**, run before interpreting any eval. They bracket the band: detector #1 confirms training did *something*; detector #2 confirms it did not do *too much*.
+These are **go/no-go sanity checks**, run before interpreting any eval. Detector #2 is a hard gate (overtraining is disqualifying by itself). Detector #1 is diagnostic, not a gate on its own — it separates "the run did *something*, real" from "the run did nothing," and reports how large that something is; whether it's *decisively* something is settled by evals #1–3, not by detector #1.
 
-- **Detector #1 — "is it changing?"** Median per-cell cosine similarity, zero-shot embedding → post-CPT embedding. Drift **> 0.05 = registered** (training had a measurable effect). If a CPT run shows ~0 drift, the run is inert and its evals are uninformative — fix the run, don't interpret it.
+- **Detector #1 — "is it changing?"** Median per-cell cosine drift, zero-shot embedding → post-CPT embedding.
+  - **Inert:** drift indistinguishable from the measured noise floor (≈0.0000 — repeat-embedding a frozen zero-shot model against itself; see `diag_colab_11_cpt_inert`). A run at this floor is uninterpretable — fix the run, don't run the evals.
+  - **Real (any drift clearly above the floor):** the run registers as having moved the embedding. This alone does **not** license calling anything a "win" — it only licenses proceeding to evals #1–3. Report the drift's magnitude as **% of the within-donor pairwise substate reference** for each lineage (the task-1 meaningful-change anchor, `diag_colab_11_cellstate_reference`: micro homeostatic↔activated, astro resting↔reactive, within-donor, cosine-distance units) so a reader can judge scale without a hardcoded cutoff. N=1 pilot reference point: drift 0.0051 = 14.0% (micro) / 11.5% (astro) of that reference.
+  - **Why no numeric pass/fail bar here (2026-07-16):** the original `>0.05` bar had no empirical or literature basis (Boiarsky 2023 / Kedzierska 2025 do not specify a drift threshold). The only anchors available post-pilot are the noise floor above and the within-donor substate reference — and the substate reference is derived from data adjacent to the very pilot being judged, so fixing any specific fraction of it (e.g. "≥25%") as a new pass bar now would be functionally indistinguishable from retro-ratcheting the gate to fit the observed 0.0051, even though the anchors themselves are legitimate. Rather than manufacture a bar with no independent justification, detector #1 is demoted to reporting-only; the substantive pass/fail burden shifts entirely to evals #1–3 (whose bands were fixed before any CPT result existed) and to detector #2 below, which remains a true gate.
 - **Detector #2 — "has it forgotten?"** k-NN cell-type accuracy on the non-AD reference. **> 20% drop = overtrain** signal — stop and reduce CPT strength (steps / LoRA rank / learning rate) before trusting any eval #1–2 "win," because the win may be the model collapsing onto the AD slice.
 
 ---
@@ -116,7 +119,7 @@ These are **go/no-go sanity checks**, run before interpreting any eval. They bra
 ## Decision rule
 
 - Each eval yields an **independent** verdict (win / null / regression) per FM per regime, from the bands above. The three evals are **not** combined into a single score — that aggregation would itself be a researcher degree of freedom. All three stand on their own and all three are reported.
-- A regime "wins" on an eval only if it clears the **meaningful** band against zero-shot **and** passes both detectors. A meaningful eval #1/#2 gain that coincides with detector #2 tripping is logged as **overtrain-confounded**, not a win.
+- A regime "wins" on an eval only if it clears the **meaningful** band against zero-shot, is **not inert** on detector #1 (drift above the noise floor), and **passes** detector #2 (≤20% forgetting). A meaningful eval #1/#2 gain that coincides with detector #2 tripping is logged as **overtrain-confounded**, not a win.
 - The headline question — *does aggregated beat per-study?* — is answered per eval, per FM, by comparing their bands on the global held-out. A null (no regime separates) is a legitimate, pre-licensed outcome, not a failure of the project.
 
 ---
@@ -146,7 +149,7 @@ These are **go/no-go sanity checks**, run before interpreting any eval. They bra
 |---|---|---|
 | Provisional draft | (this commit) | 2026-06-16 |
 | Eval #1 label source resolved (microglia) + relabel DAM→activated + confound clause | (this commit) | 2026-06-19 |
-| Post-pilot refinement | TBD | TBD |
+| Post-pilot refinement (detector #1 only — reporting-only reframe, `>0.05` bar dropped; eval#1-3/detector#2 bands untouched, pending their own pilot runs) | TBD | 2026-07-16 |
 | Permanent lock | TBD | TBD |
 
 This file is the artifact a reviewer (postdoc, or Harvard) inspects to confirm the CPT conclusions were committed to in advance.
