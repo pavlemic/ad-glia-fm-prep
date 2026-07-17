@@ -643,5 +643,237 @@
     "donor_metadata_file": "outputs/donor_metadata.csv",
     "donor_split_file": "outputs/donor_split.json",
     "prior_run": "geneformer_cpt_aggregated_pilot_v1"
+  },
+  "geneformer_cpt_head_ablation": {
+    "status": "computed",
+    "caveats": [],
+    "date": "2026-07-17",
+    "smoke": false,
+    "run_tag": "head_ablation",
+    "question": "where did colab_11 v2's loss gain land, and was detector #1 positioned to see it?",
+    "model_dir": "Geneformer-V2-104M",
+    "geneformer_commit": "04c2b2e84da7c0f385c3f9ad8f3ec24bab6650e5",
+    "surface": "val",
+    "n_val_cells": 23824,
+    "eval_batch": 8,
+    "mlm_prob": 0.15,
+    "peft_version": "0.19.1",
+    "transformers_version": "4.57.0",
+    "loss_estimators": {
+      "token_weighted": "sum(CE over masked positions)/n_masked -- the ladder's primary readout",
+      "trainer_style": "sample-weighted mean of per-batch token-mean CE -- reproduces HF Trainer's eval reduction, the estimator colab_11's curve used"
+    },
+    "precision": "bf16 autocast forward + fp32 cross-entropy -- matches colab_11's Trainer",
+    "attribution_gated": null,
+    "noise_floor_token_weighted": 0.0004190515934885844,
+    "emb_layer_convention": "emb_layer=-1 extracts layer L-2 output; layer L-1 + MLM head are downstream",
+    "geometry": {
+      "n_layers": 12,
+      "hidden": 768,
+      "intermediate": 3072,
+      "lora_r": 8,
+      "lora_params_head": 12288,
+      "lora_params_last_layer": 110592,
+      "lora_params_blind_spot": 122880,
+      "v2_trainable": 1339392,
+      "blind_spot_frac_of_v2": 0.09174311926605505
+    },
+    "ablation_audit": {
+      "v1_intact": {
+        "n_lora_modules": 36,
+        "n_modules_zeroed": 0,
+        "lora_params_zeroed": 0,
+        "modules": []
+      },
+      "v2_intact": {
+        "n_lora_modules": 73,
+        "n_modules_zeroed": 0,
+        "lora_params_zeroed": 0,
+        "modules": []
+      },
+      "v2_minus_head": {
+        "n_lora_modules": 73,
+        "n_modules_zeroed": 1,
+        "lora_params_zeroed": 12288,
+        "modules": [
+          "base_model.model.cls.predictions.transform.dense"
+        ]
+      },
+      "v2_minus_last_layer": {
+        "n_lora_modules": 73,
+        "n_modules_zeroed": 6,
+        "lora_params_zeroed": 110592,
+        "modules": [
+          "base_model.model.bert.encoder.layer.11.attention.output.dense",
+          "base_model.model.bert.encoder.layer.11.attention.self.key",
+          "base_model.model.bert.encoder.layer.11.attention.self.query",
+          "base_model.model.bert.encoder.layer.11.attention.self.value",
+          "base_model.model.bert.encoder.layer.11.intermediate.dense",
+          "base_model.model.bert.encoder.layer.11.output.dense"
+        ]
+      },
+      "v2_minus_both": {
+        "n_lora_modules": 73,
+        "n_modules_zeroed": 7,
+        "lora_params_zeroed": 122880,
+        "modules": [
+          "base_model.model.bert.encoder.layer.11.attention.output.dense",
+          "base_model.model.bert.encoder.layer.11.attention.self.key",
+          "base_model.model.bert.encoder.layer.11.attention.self.query",
+          "base_model.model.bert.encoder.layer.11.attention.self.value",
+          "base_model.model.bert.encoder.layer.11.intermediate.dense",
+          "base_model.model.bert.encoder.layer.11.output.dense",
+          "base_model.model.cls.predictions.transform.dense"
+        ]
+      }
+    },
+    "ladder": {
+      "base": {
+        "token_weighted": 2.0854252585687445,
+        "trainer_style": 2.1168626827573824,
+        "n_masked_tokens": 8263364,
+        "n_batches": 2978,
+        "lora_params_zeroed": 0
+      },
+      "v1_intact": {
+        "token_weighted": 2.054885079329904,
+        "trainer_style": 2.087617907913824,
+        "n_masked_tokens": 8263364,
+        "n_batches": 2978,
+        "lora_params_zeroed": 0
+      },
+      "v2_intact": {
+        "token_weighted": 2.0497919465384347,
+        "trainer_style": 2.0827287683960543,
+        "n_masked_tokens": 8263364,
+        "n_batches": 2978,
+        "lora_params_zeroed": 0
+      },
+      "v2_minus_head": {
+        "token_weighted": 2.0517664032833096,
+        "trainer_style": 2.08465300551735,
+        "n_masked_tokens": 8263364,
+        "n_batches": 2978,
+        "lora_params_zeroed": 12288,
+        "ablation_cost": 0.001974456744874953,
+        "frac_of_v2_v1_gap": 0.3876703839691786,
+        "cost_clears_floor": true
+      },
+      "v2_minus_last_layer": {
+        "token_weighted": 2.0519726463725343,
+        "trainer_style": 2.0848044161536463,
+        "n_masked_tokens": 8263364,
+        "n_batches": 2978,
+        "lora_params_zeroed": 110592,
+        "ablation_cost": 0.002180699834099631,
+        "frac_of_v2_v1_gap": 0.4281647314894552,
+        "cost_clears_floor": true
+      },
+      "v2_minus_both": {
+        "token_weighted": 2.0547899906123375,
+        "trainer_style": 2.0875543535875623,
+        "n_masked_tokens": 8263364,
+        "n_batches": 2978,
+        "lora_params_zeroed": 122880,
+        "ablation_cost": 0.004998044073902808,
+        "frac_of_v2_v1_gap": 0.9813300140679919,
+        "cost_clears_floor": true
+      }
+    },
+    "noise_summary": {
+      "seeds": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "n_draws": 4,
+      "token_weighted": {
+        "losses": {
+          "0": 2.0497919465384347,
+          "1": 2.048861260114632,
+          "2": 2.049116123163393,
+          "3": 2.0489638924106903
+        },
+        "sd": 0.0004190515934885844,
+        "range": 0.0009306864238025625
+      },
+      "trainer_style": {
+        "losses": {
+          "0": 2.0827287683960543,
+          "1": 2.081538664515614,
+          "2": 2.081685581474707,
+          "3": 2.0815537773622426
+        },
+        "sd": 0.0005718664940140727,
+        "range": 0.0011901038804400521
+      }
+    },
+    "ref_train_loss": {
+      "v1": 2.0971,
+      "v2": 2.0921
+    },
+    "ref_val_loss_curve": {
+      "250": {
+        "v1": 2.093421,
+        "v2": 2.090349
+      },
+      "500": {
+        "v1": 2.091376,
+        "v2": 2.088032
+      },
+      "750": {
+        "v1": 2.089601,
+        "v2": 2.085899
+      },
+      "1000": {
+        "v1": 2.089767,
+        "v2": 2.086088
+      },
+      "1250": {
+        "v1": 2.088168,
+        "v2": 2.084011
+      },
+      "1500": {
+        "v1": 2.087294,
+        "v2": 2.08272
+      },
+      "1750": {
+        "v1": 2.086892,
+        "v2": 2.082163
+      },
+      "2000": {
+        "v1": 2.086208,
+        "v2": 2.081286
+      }
+    },
+    "reproduction_check_vs_colab_11": {
+      "v1": {
+        "recomputed_trainer_style": 2.087617907913824,
+        "colab_11_step2000": 2.086208,
+        "delta": 0.0014099079138238935,
+        "within_band": true
+      },
+      "v2": {
+        "recomputed_trainer_style": 2.0827287683960543,
+        "colab_11_step2000": 2.081286,
+        "delta": 0.0014427683960542836,
+        "within_band": true
+      },
+      "residual_difference": "mask draw only (estimator, batch size and precision are matched)",
+      "interpretable_against": "\u00a77b mask-draw spread",
+      "band_3sigma_sqrt2": 0.0024262240551043623,
+      "verdict": "reproduces colab_11"
+    },
+    "limits": [
+      "ablation is not decomposition: the encoder trained with the head delta present, so each rung is an upper bound on its region's contribution and rungs need not sum to C",
+      "does not bound training-seed variance: v1/v2 are N=1 on diverging RNG trajectories",
+      "colab_11's 8-checkpoint val curve is 8 samples of the same 2 trajectories, not 8 independent draws -- 'v2 wins 8/8' carries almost no evidential weight",
+      "v1/v2 consumed different training RNG, so their eval masks likely differed; part of the reference curve's 0.0031-0.0049 gap may be mask noise, which \u00a77b bounds",
+      "rung 0a reproduces colab_11 on the trainer_style estimator with estimator, batch size (8) and precision (bf16 forward + fp32 CE) matched; the mask draw is the only residual, and its spread from \u00a77b sets the band the deltas are judged against",
+      "the noise floor rests on n=4 mask draws: sd carries ca. 40% relative error at that n and range is downward-biased, so any 'Nx the floor' ratio is order-of-magnitude only",
+      "bf16 rounding error is NOT common-mode across variants (different weights -> different error realisations); it is tolerable on magnitude (ca. 1e-5 after averaging over ca. 7M masked tokens), not because it cancels",
+      "peft/transformers/datasets are asserted in \u00a72a against colab_11's recorded pip freeze (peft 0.19.1, transformers 4.57.0, datasets 5.0.0), so the merge semantics that produced these numbers match the ones that produced the adapters; torch and numpy ride Colab's base image and are recorded but not pinned"
+    ]
   }
 }
