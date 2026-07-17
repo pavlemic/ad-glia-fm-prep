@@ -74,6 +74,27 @@ transformers==4.57.0
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
+# PEFT PIN — 2026-07-17. Added when diag_colab_11_head_ablation made peft's
+# merge semantics correctness-critical rather than incidental. That notebook
+# re-merges colab_11's LoRA adapters onto a fresh base and attributes loss
+# differences of ca. 0.005 nats between the resulting variants; peft decides
+# both which modules `target_modules` matches and exactly how `merge()` folds
+# B@A*scaling into the base weight. A resolver drift in either would move every
+# number it reports with no crash and no visible sign — the silent-wrong-number
+# failure this file's other pins exist to prevent.
+#
+# This is consistent with, not an exception to, the policy stated below: only
+# correctness-critical, version-fragile packages are hard-pinned. peft was
+# previously documented-but-unpinned because nothing depended on its exact
+# semantics; that stopped being true. 0.19.1 is the version colab_11 actually
+# resolved, per outputs/software_versions/colab_11_2026-07-15_pip_freeze.txt,
+# so pinning it makes future runs match the adapters already on Drive rather
+# than imposing a new choice. Installed BEFORE Geneformer's `pip install .`,
+# whose own requirement is unconstrained and satisfied by any installed version.
+peft==0.19.1
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
 # DATASETS VIDEOREADER PIN — 2026-07-04. §5b (EmbExtractor.extract_embs, which
 # uses a `datasets`-backed torch Dataset under the hood) crashed with
 # `ImportError: cannot import name 'VideoReader' from 'torchvision.io'`.
@@ -116,5 +137,6 @@ datasets==5.0.0
 #   numpy 2.0.2   scipy 1.16.3   scanpy 1.12.2   anndata 0.12.19
 #   torch 2.11.0+cu128   peft 0.19.1   accelerate 1.14.0
 #   huggingface-hub 0.36.2   tokenizers 0.22.2
-# Only the two correctness-critical, version-fragile packages stay hard-pinned
-# (transformers 4.57.0 + datasets 5.0.0, above) — everything else rides Colab.
+# Only the correctness-critical, version-fragile packages stay hard-pinned
+# (transformers 4.57.0 + datasets 5.0.0 + peft 0.19.1, above) — everything else
+# rides Colab. peft joined that set on 2026-07-17; see its own block for why.
