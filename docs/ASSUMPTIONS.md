@@ -24,7 +24,11 @@ This is the pipeline's fail-loud principle one level up — the standing rule th
 
 **2. Inheritance audit at regime close** (regime, not notebook — per-notebook close fires too often to stay cheap, and a check that fires too often stops firing at all). Grep the notebooks for conventions justified by *"same as \<earlier notebook\>"*. In `colab_11` those are *"Same defaults as colab_09"* (§4b) and *"the **same** `EmbExtractor` pass colab_09 used"* (§6a). Such phrases establish **consistency, not correctness** — each one is a pointer to a justification living somewhere nobody has re-read. Check that the pointed-to justification exists and was itself verified.
 
-**Known weakness:** trigger 1 depends on judgement about what counts as "a scientific choice," and that scope can be drawn too narrowly. This makes the class of gap found on 2026-07-17 much less likely; it does not make the general category impossible.
+**3. Any claim that a record does not exist.** *"The val curve wasn't saved." "That was a widget, it got stripped." "Only train_loss survives."* An assertion of absence is a load-bearing claim exactly like an API semantic, and it is **cheaper to check than either** — one grep. Check before building on it. This trigger was added 2026-07-17 after the mirror image of the gap that opened this file: `diag_colab_11_head_ablation` was scaffolded on the belief that no validation loss survived from `colab_11`, framing its rung 0 as a gate that might close the whole arc. The full step-matched val curve was in `What we did.txt` the entire time and had simply not been re-read — it changed the notebook's framing, its reference numbers, and which cell is actually the arc's gate.
+
+Note the asymmetry that makes this class dangerous. Triggers 1 and 2 guard assumptions that *something behaves a certain way*; being wrong there usually produces a number that looks fine. Trigger 3 guards assumptions that *nothing is there*, and being wrong produces work built to recover what you already had — the error hides in the shape of the plan, not in a value, so no assertion can catch it. Absence is the one claim that cannot fail loud on its own.
+
+**Known weakness:** trigger 1 depends on judgement about what counts as "a scientific choice," and that scope can be drawn too narrowly. This makes the class of gap found on 2026-07-17 much less likely; it does not make the general category impossible. Trigger 3 has a matching weakness in the opposite direction: it is only as good as knowing *where* a record would live if it existed — this project's are spread across `outputs/audit_report.json`, the `_OUTPUT` notebooks, the local `What we did.txt`, and the memory files, and the 2026-07-17 miss checked the first two and stopped.
 
 ---
 
@@ -48,11 +52,18 @@ This file is only worth keeping if the checks stay cheap. The 2026-07-17 check f
 
 **`GeneformerPreCollator` registers only `<mask>` and `<pad>` as special tokens.** Verified against `geneformer/pretrainer.py`: `__init__` calls `super().__init__(mask_token="<mask>", pad_token="<pad>")`, and its `get_special_tokens_mask` returns `1` only for `self.all_special_ids`. `<cls>` and `<eos>` are therefore treated as ordinary maskable tokens, so `DataCollatorForLanguageModeling(mlm_probability=0.15)` masks `<cls>` in roughly 15% of cells during CPT. This is upstream Geneformer behaviour, not a project bug, but it is a caveat if `<cls>` becomes the readout.
 
+**`Geneformer-V2-104M` is a 12-layer encoder — and detector #1's blind spot is 9.2% of v2's adapted capacity.** Verified against the checkpoint's `config.json` on HuggingFace: `num_hidden_layers=12`, `hidden_size=768`, `intermediate_size=3072`, `num_attention_heads=12`, `vocab_size=20275`, `max_position_embeddings=4096`. This settles the earlier open question (12 vs 20) and makes the LoRA parameter counts fully attributable, since LoRA adds `r * (d_in + d_out)` per adapted module at `r=8`:
+
+- `colab_11` v1 (`query,key,value`) reported **442,368** trainable = `3 × 8 × (768+768) × 12 layers`. Exact.
+- v2 (`+dense`) reported **1,339,392**, i.e. **897,024** added = `12 layers × [attn.output.dense 12,288 + intermediate.dense 30,720 + output.dense 30,720]` (884,736) + `cls.predictions.transform.dense` (12,288). Exact.
+
+So `dense` matched **37** modules: 36 encoder projections and one MLM-head projection. Two consequences. (a) The MLM head's adapter is **12,288 params — 1.4% of what v2 added**, so the head-absorption hypothesis requires that thin slice to carry essentially all of v2's loss gain. (b) Since `emb_layer=-1` extracts the output of layer index 10, what is structurally invisible to detector #1 is the head **plus all of encoder layer 11**: 12,288 + 110,592 = **122,880 params, 9.2% of v2's trainable capacity**. Detector #1 sees the other ~91%. Tested directly by `diag_colab_11_head_ablation`, which re-derives these counts from `config.json` and asserts them against what it actually zeroes.
+
+**Tokenization is cell-local — a subset tokenizes bit-identically to the full object.** Verified against `geneformer/tokenizer.py` at commit `04c2b2e`: `norm_factor_vector` is built from the shipped `gene_median_dict` (loaded once from `gene_median_file`, independent of the data), and the only per-cell quantity is `n_counts = adata[idx].obs["n_counts"]` — that cell's own total. No dataset-wide statistic enters. The gene-level steps (`sum_ensembl_ids`, the `coding_miRNA_loc` filter) act on `adata.var`, which cell-subsetting does not change. This licenses `diag_colab_11_head_ablation` to tokenize the val split alone (23,824 cells) rather than all 142,588 and subset, at identical tokens.
+
 ---
 
 ## Unverified — the work queue
-
-**Does the `Geneformer-V2-104M` checkpoint dir have 12 or 20 encoder layers?** `colab_11` §5a sets `MODEL_DIR = os.path.join(GENEFORMER_REPO, "Geneformer-V2-104M")`. The Geneformer V2 series ships both 12-layer and 20-layer variants. This does **not** affect the "`-1` = 2nd-to-last" conclusion, which is layer-count-independent — but it does set what *fraction* of the encoder's adaptation the drift metric cannot see (1/12 vs 1/20). Cheap to settle: read `config.json`'s `num_hidden_layers` in the checkpoint dir.
 
 **Was Geneformer V2 itself pretrained with `<cls>` maskable?** Bears on whether the `<cls>` representation is robust to the masking noted above, and therefore on whether `<cls>` is a sound readout for eval #1–3. If upstream pretraining masked `<cls>` the same way, its learned role already tolerates it.
 
