@@ -875,5 +875,92 @@
       "bf16 rounding error is NOT common-mode across variants (different weights -> different error realisations); it is tolerable on magnitude (ca. 1e-5 after averaging over ca. 7M masked tokens), not because it cancels",
       "peft/transformers/datasets are asserted in \u00a72a against colab_11's recorded pip freeze (peft 0.19.1, transformers 4.57.0, datasets 5.0.0), so the merge semantics that produced these numbers match the ones that produced the adapters; torch and numpy ride Colab's base image and are recorded but not pinned"
     ]
+  },
+  "geneformer_cpt_evals": {
+    "status": "computed",
+    "date": "2026-07-20",
+    "regime": "aggregated",
+    "seed": 0,
+    "reads_run": "geneformer_cpt_aggregated_v2",
+    "extraction_points": {
+      "L-1": "second-to-last",
+      "L0": "last layer"
+    },
+    "geneformer_commit": "04c2b2e84da7c0f385c3f9ad8f3ec24bab6650e5",
+    "eval1_substate_probe": {
+      "microglia|L-1": {
+        "bacc_zeroshot": 0.9069,
+        "bacc_cpt": 0.9057,
+        "delta_pp": -0.12,
+        "verdict": "noise"
+      },
+      "microglia|L0": {
+        "bacc_zeroshot": 0.9088,
+        "bacc_cpt": 0.9072,
+        "delta_pp": -0.16,
+        "verdict": "noise"
+      },
+      "astrocyte|L-1": {
+        "bacc_zeroshot": 0.7784,
+        "bacc_cpt": 0.7767,
+        "delta_pp": -0.17,
+        "verdict": "noise"
+      },
+      "astrocyte|L0": {
+        "bacc_zeroshot": 0.7861,
+        "bacc_cpt": 0.7873,
+        "delta_pp": 0.12,
+        "verdict": "noise"
+      }
+    },
+    "eval2_apoe_recovery": {
+      "microglia|L-1": {
+        "knn_bacc_zeroshot": 0.4575,
+        "knn_bacc_cpt": 0.4587,
+        "knn_delta_pp": 0.12,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0614,
+        "sil_cpt": 0.0618,
+        "sil_delta": 0.0004,
+        "sil_verdict": "noise"
+      },
+      "microglia|L0": {
+        "knn_bacc_zeroshot": 0.448,
+        "knn_bacc_cpt": 0.4465,
+        "knn_delta_pp": -0.15,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0749,
+        "sil_cpt": 0.0719,
+        "sil_delta": -0.003,
+        "sil_verdict": "regression"
+      },
+      "astrocyte|L-1": {
+        "knn_bacc_zeroshot": 0.402,
+        "knn_bacc_cpt": 0.4019,
+        "knn_delta_pp": -0.01,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0484,
+        "sil_cpt": 0.0479,
+        "sil_delta": -0.0005,
+        "sil_verdict": "regression"
+      },
+      "astrocyte|L0": {
+        "knn_bacc_zeroshot": 0.3983,
+        "knn_bacc_cpt": 0.4007,
+        "knn_delta_pp": 0.24,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0653,
+        "sil_cpt": 0.0624,
+        "sil_delta": -0.0029,
+        "sil_verdict": "regression"
+      }
+    },
+    "embedding_files": {
+      "zeroshot_L-1": "geneformer/glia_geneformer_zeroshot.h5ad",
+      "cpt_L-1": "geneformer/glia_geneformer_cpt_aggregated_v2_seed0.h5ad",
+      "zeroshot_L0": "geneformer/glia_geneformer_zeroshot_L0.h5ad",
+      "cpt_L0": "geneformer/glia_geneformer_cpt_aggregated_v2_seed0_L0.h5ad"
+    },
+    "note": "L-1 = pipeline readout; L0 captures layer-11's absorbed share only (head unreachable as embedding). Eval #2: k-NN is load-bearing; silhouette corroborating-only at these donor counts."
   }
 }
