@@ -962,5 +962,46 @@
       "cpt_L0": "geneformer/glia_geneformer_cpt_aggregated_v2_seed0_L0.h5ad"
     },
     "note": "L-1 = pipeline readout; L0 captures layer-11's absorbed share only (head unreachable as embedding). Eval #2: k-NN is load-bearing; silhouette corroborating-only at these donor counts."
+  },
+  "geneformer_cpt_forgetting": {
+    "status": "computed",
+    "date": "2026-07-21",
+    "reads_run": "geneformer_cpt_aggregated_v2",
+    "reference": "pbmc",
+    "reference_file": "reference/pbmc_reference.h5ad",
+    "n_ref_cells": 13738,
+    "n_cell_types": 8,
+    "geneformer_commit": "04c2b2e84da7c0f385c3f9ad8f3ec24bab6650e5",
+    "extraction_points": {
+      "L-1": "second-to-last",
+      "L0": "last layer"
+    },
+    "eval3_detector2": {
+      "L-1": {
+        "acc_zeroshot": 0.8833,
+        "acc_cpt": 0.8825,
+        "drop_pp": 0.09,
+        "eval3_verdict": "acceptable",
+        "detector2_gate": "pass",
+        "n_types_scored": 7,
+        "excluded_types": [
+          "Megakaryocytes"
+        ]
+      },
+      "L0": {
+        "acc_zeroshot": 0.9329,
+        "acc_cpt": 0.9305,
+        "drop_pp": 0.24,
+        "eval3_verdict": "acceptable",
+        "detector2_gate": "pass",
+        "n_types_scored": 7,
+        "excluded_types": [
+          "Megakaryocytes"
+        ]
+      }
+    },
+    "detector2_primary_gate": "pass",
+    "colab_12_gate": [],
+    "note": "eval#3 and detector#2 are one k-NN read two ways. PBMC's myeloid overlap with microglia may under-detect forgetting; Tabula Sapiens is the stricter breadth swap."
   }
 }
