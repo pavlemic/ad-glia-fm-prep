@@ -112,6 +112,19 @@ datasets==5.0.0
 # already satisfying anndata's requirement.
 typing_extensions>=4.16.0
 
+# peft==0.19.1 — HARD PIN, added 2026-07-26 for the scGPT CPT notebooks (colab_16+).
+# Same reasoning that made it a hard pin in requirements_geneformer.txt: the moment a notebook
+# depends on peft's merge semantics, the version becomes correctness-critical rather than
+# incidental. For scGPT the dependency is sharper than for Geneformer. scGPT's encoder layers are
+# `torch.nn.TransformerEncoderLayer`, whose query/key/value projections are a single FUSED
+# `in_proj_weight` Parameter inside `nn.MultiheadAttention` — not three `nn.Linear` modules. LoRA
+# can only reach them because peft ships a dedicated `lora.layer.MultiheadAttention` wrapper that
+# merges/unmerges around each forward call. That wrapper's behaviour (what it covers, and that it
+# merges cleanly on `merge_and_unload`) is what colab_16's adapter accounting and its post-CPT
+# embedding both rest on. 0.19.1 is also the version colab_11's Geneformer adapters were trained
+# and merged under, so both FM arms sit on one pinned merge implementation.
+peft==0.19.1
+
 # ---------------------------------------------------------------------------
 # RESOLVED by the first clean run — TO BE FILLED after colab_10 runs green.
 # Recorded here as DOCUMENTATION, deliberately NOT hard-pinned (NUMPY POLICY
