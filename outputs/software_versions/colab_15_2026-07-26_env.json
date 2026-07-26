@@ -1,0 +1,22 @@
+{
+  "notebook_id": "colab_15",
+  "date": "2026-07-26",
+  "smoke": false,
+  "extract_l0": false,
+  "python_version": "3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+  "os_release": "6.6.122+",
+  "gpu": "GPU 0: NVIDIA A100-SXM4-80GB (UUID: GPU-9e03436a-3638-c42a-925e-f3c8577abdf7)",
+  "cuda": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+  "git_commit": "81fac2e850f6f2597f14c3cff81dfdaccbabb4bf",
+  "geneformer_commit": "04c2b2e84da7c0f385c3f9ad8f3ec24bab6650e5",
+  "scanpy_version": "1.12.3",
+  "anndata_version": "0.13.2",
+  "sklearn_version": "1.6.1",
+  "torch_version": "2.11.0+cu128",
+  "transformers_version": "4.57.0",
+  "peft_version": "0.19.1",
+  "datasets_version": "5.0.0",
+  "geneformer_version": null,
+  "geneformer_commit_source": "audit_report.json (Geneformer not installed this run)"
+}

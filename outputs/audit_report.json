@@ -1094,5 +1094,326 @@
     },
     "donor_split_file": "outputs/donor_split.json",
     "compare_to": "geneformer_cpt_aggregated_v2"
+  },
+  "geneformer_cpt_per_study_evals": {
+    "status": "computed",
+    "date": "2026-07-26",
+    "regime": "per_study",
+    "seed": 0,
+    "reads_run": "geneformer_cpt_per_study",
+    "reference_runs": [
+      "geneformer_zeroshot",
+      "geneformer_cpt_aggregated_v2"
+    ],
+    "geneformer_commit": "04c2b2e84da7c0f385c3f9ad8f3ec24bab6650e5",
+    "tier_2_run": false,
+    "tiers": {
+      "full": {
+        "layers": [
+          "L-1"
+        ],
+        "n_cells": 142588
+      }
+    },
+    "extraction_points": {
+      "L-1": "second-to-last (pipeline readout)",
+      "L0": "last layer (captures layer 11's absorbed share only; the head is unreachable as an embedding)"
+    },
+    "power_floors": {
+      "min_test_donors": 3,
+      "min_test_cells": 100,
+      "note": "min_test_cells is new in colab_15 -- a plausibility floor against single-donor-dominated / thin classes, not a calibrated SE bound (see 4b); needs sign-off"
+    },
+    "detector_2_gate": {
+      "status": "not_run_for_per_study",
+      "any_verdict_pending_gate": false,
+      "note": "Detector #2 (forgetting, colab_13) has only ever been run for the aggregated checkpoint. docs/EVALUATION_CONTRACT.md requires clearing detector #2 in addition to the meaningful band before any regime's result is read as a win. Any 'meaningful'/'decisive' verdict recorded here is UNGATED until a per-study forgetting probe exists -- read as a candidate win pending that gate, not a confirmed one."
+    },
+    "sub_cap": null,
+    "detector_1_drift_all": {
+      "aggregated": 0.005045115947723389,
+      "seaad": 0.005429863929748535,
+      "li2025": 0.0029965639114379883,
+      "haney2024": 0.0035895705223083496
+    },
+    "training_steps": {
+      "aggregated": 2000,
+      "seaad": 1079,
+      "li2025": 660,
+      "haney2024": 261
+    },
+    "eval1_substate_probe": {
+      "full|aggregated|microglia|L-1": {
+        "bacc_zeroshot": 0.9069,
+        "bacc_cpt": 0.9057,
+        "delta_pp": -0.12,
+        "verdict": "noise"
+      },
+      "full|seaad|microglia|L-1": {
+        "bacc_zeroshot": 0.9069,
+        "bacc_cpt": 0.9058,
+        "delta_pp": -0.1,
+        "verdict": "noise"
+      },
+      "full|li2025|microglia|L-1": {
+        "bacc_zeroshot": 0.9069,
+        "bacc_cpt": 0.9056,
+        "delta_pp": -0.13,
+        "verdict": "noise"
+      },
+      "full|haney2024|microglia|L-1": {
+        "bacc_zeroshot": 0.9069,
+        "bacc_cpt": 0.9079,
+        "delta_pp": 0.1,
+        "verdict": "noise"
+      },
+      "full|aggregated|astrocyte|L-1": {
+        "bacc_zeroshot": 0.7784,
+        "bacc_cpt": 0.7767,
+        "delta_pp": -0.17,
+        "verdict": "noise"
+      },
+      "full|seaad|astrocyte|L-1": {
+        "bacc_zeroshot": 0.7784,
+        "bacc_cpt": 0.7795,
+        "delta_pp": 0.11,
+        "verdict": "noise"
+      },
+      "full|li2025|astrocyte|L-1": {
+        "bacc_zeroshot": 0.7784,
+        "bacc_cpt": 0.7769,
+        "delta_pp": -0.15,
+        "verdict": "noise"
+      },
+      "full|haney2024|astrocyte|L-1": {
+        "bacc_zeroshot": 0.7784,
+        "bacc_cpt": 0.7784,
+        "delta_pp": 0.01,
+        "verdict": "noise"
+      }
+    },
+    "eval2_apoe_recovery": {
+      "full|aggregated|microglia|L-1": {
+        "knn_bacc_zeroshot": 0.4575,
+        "knn_bacc_cpt": 0.4587,
+        "knn_delta_pp": 0.12,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0614,
+        "sil_cpt": 0.0618,
+        "sil_delta": 0.0004,
+        "sil_verdict": "noise",
+        "sil_role": "corroborating_only"
+      },
+      "full|seaad|microglia|L-1": {
+        "knn_bacc_zeroshot": 0.4575,
+        "knn_bacc_cpt": 0.4592,
+        "knn_delta_pp": 0.17,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0614,
+        "sil_cpt": 0.0549,
+        "sil_delta": -0.0064,
+        "sil_verdict": "regression",
+        "sil_role": "corroborating_only"
+      },
+      "full|li2025|microglia|L-1": {
+        "knn_bacc_zeroshot": 0.4575,
+        "knn_bacc_cpt": 0.4603,
+        "knn_delta_pp": 0.28,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0614,
+        "sil_cpt": 0.0582,
+        "sil_delta": -0.0032,
+        "sil_verdict": "regression",
+        "sil_role": "corroborating_only"
+      },
+      "full|haney2024|microglia|L-1": {
+        "knn_bacc_zeroshot": 0.4575,
+        "knn_bacc_cpt": 0.4561,
+        "knn_delta_pp": -0.14,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0614,
+        "sil_cpt": 0.0573,
+        "sil_delta": -0.004,
+        "sil_verdict": "regression",
+        "sil_role": "corroborating_only"
+      },
+      "full|aggregated|astrocyte|L-1": {
+        "knn_bacc_zeroshot": 0.402,
+        "knn_bacc_cpt": 0.4019,
+        "knn_delta_pp": -0.01,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0484,
+        "sil_cpt": 0.0479,
+        "sil_delta": -0.0005,
+        "sil_verdict": "regression",
+        "sil_role": "corroborating_only"
+      },
+      "full|seaad|astrocyte|L-1": {
+        "knn_bacc_zeroshot": 0.402,
+        "knn_bacc_cpt": 0.3985,
+        "knn_delta_pp": -0.35,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0484,
+        "sil_cpt": 0.0411,
+        "sil_delta": -0.0073,
+        "sil_verdict": "regression",
+        "sil_role": "corroborating_only"
+      },
+      "full|li2025|astrocyte|L-1": {
+        "knn_bacc_zeroshot": 0.402,
+        "knn_bacc_cpt": 0.4031,
+        "knn_delta_pp": 0.12,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0484,
+        "sil_cpt": 0.0468,
+        "sil_delta": -0.0016,
+        "sil_verdict": "regression",
+        "sil_role": "corroborating_only"
+      },
+      "full|haney2024|astrocyte|L-1": {
+        "knn_bacc_zeroshot": 0.402,
+        "knn_bacc_cpt": 0.4037,
+        "knn_delta_pp": 0.17,
+        "knn_verdict": "noise",
+        "sil_zeroshot": 0.0484,
+        "sil_cpt": 0.0456,
+        "sil_delta": -0.0028,
+        "sil_verdict": "regression",
+        "sil_role": "corroborating_only"
+      }
+    },
+    "eval_in_domain_supplementary": {
+      "seaad|eval1|microglia": {
+        "bacc_zeroshot": 0.913,
+        "bacc_own": 0.9107,
+        "bacc_aggregated": 0.9132,
+        "delta_own_pp": -0.24,
+        "delta_aggregated_pp": 0.01,
+        "verdict": "noise",
+        "n_test": 4232,
+        "n_donors": 10
+      },
+      "seaad|eval1|astrocyte": {
+        "bacc_zeroshot": 0.7951,
+        "bacc_own": 0.7961,
+        "bacc_aggregated": 0.7928,
+        "delta_own_pp": 0.1,
+        "delta_aggregated_pp": -0.24,
+        "verdict": "noise",
+        "n_test": 5601,
+        "n_donors": 10
+      },
+      "seaad|eval2|microglia": {
+        "knn_zeroshot": 0.4473,
+        "knn_own": 0.4536,
+        "knn_aggregated": 0.4523,
+        "delta_own_pp": 0.62,
+        "delta_aggregated_pp": 0.5,
+        "verdict": "noise",
+        "n_test": 4842,
+        "n_donors": 9
+      },
+      "seaad|eval2|astrocyte": {
+        "knn_zeroshot": 0.4595,
+        "knn_own": 0.4578,
+        "knn_aggregated": 0.4587,
+        "delta_own_pp": -0.17,
+        "delta_aggregated_pp": -0.08,
+        "verdict": "noise",
+        "n_test": 7418,
+        "n_donors": 9
+      },
+      "li2025|eval1|microglia": {
+        "bacc_zeroshot": 0.8535,
+        "bacc_own": 0.8532,
+        "bacc_aggregated": 0.8572,
+        "delta_own_pp": -0.03,
+        "delta_aggregated_pp": 0.37,
+        "verdict": "noise",
+        "n_test": 2409,
+        "n_donors": 8
+      },
+      "li2025|eval1|astrocyte": {
+        "bacc_zeroshot": 0.8615,
+        "bacc_own": 0.8601,
+        "bacc_aggregated": 0.8563,
+        "delta_own_pp": -0.14,
+        "delta_aggregated_pp": -0.52,
+        "verdict": "noise",
+        "n_test": 3304,
+        "n_donors": 8
+      },
+      "li2025|eval2|microglia": {
+        "knn_zeroshot": 0.5079,
+        "knn_own": 0.5126,
+        "knn_aggregated": 0.5047,
+        "delta_own_pp": 0.47,
+        "delta_aggregated_pp": -0.32,
+        "verdict": "noise",
+        "n_test": 3211,
+        "n_donors": 8
+      },
+      "li2025|eval2|astrocyte": {
+        "knn_zeroshot": 0.4546,
+        "knn_own": 0.4443,
+        "knn_aggregated": 0.4526,
+        "delta_own_pp": -1.03,
+        "delta_aggregated_pp": -0.2,
+        "verdict": "noise",
+        "n_test": 3925,
+        "n_donors": 8
+      },
+      "haney2024|eval1|microglia": {
+        "bacc_zeroshot": 0.887,
+        "bacc_own": 0.8948,
+        "bacc_aggregated": 0.8801,
+        "delta_own_pp": 0.78,
+        "delta_aggregated_pp": -0.69,
+        "verdict": "noise",
+        "n_test": 780,
+        "n_donors": 4
+      },
+      "haney2024|eval1|astrocyte": {
+        "bacc_zeroshot": 0.6791,
+        "bacc_own": 0.6785,
+        "bacc_aggregated": 0.681,
+        "delta_own_pp": -0.06,
+        "delta_aggregated_pp": 0.19,
+        "verdict": "noise",
+        "n_test": 1340,
+        "n_donors": 4
+      },
+      "haney2024|eval2|microglia": {
+        "knn_zeroshot": 0.4783,
+        "knn_own": 0.4771,
+        "knn_aggregated": 0.4698,
+        "delta_own_pp": -0.13,
+        "delta_aggregated_pp": -0.86,
+        "verdict": "noise",
+        "n_test": 1055,
+        "n_donors": 4
+      },
+      "haney2024|eval2|astrocyte": {
+        "knn_zeroshot": 0.4357,
+        "knn_own": 0.4464,
+        "knn_aggregated": 0.4261,
+        "delta_own_pp": 1.07,
+        "delta_aggregated_pp": -0.96,
+        "verdict": "noise",
+        "n_test": 2105,
+        "n_donors": 4
+      }
+    },
+    "embedding_files": {
+      "L-1": {
+        "zeroshot": "geneformer/glia_geneformer_zeroshot.h5ad",
+        "aggregated": "geneformer/glia_geneformer_cpt_aggregated_v2_seed0.h5ad",
+        "seaad": "geneformer/glia_geneformer_cpt_per_study_seaad_seed0.h5ad",
+        "li2025": "geneformer/glia_geneformer_cpt_per_study_li2025_seed0.h5ad",
+        "haney2024": "geneformer/glia_geneformer_cpt_per_study_haney2024_seed0.h5ad"
+      },
+      "L0": null
+    },
+    "note": "Primary = all variants on the same global held-out cells (population-matched, the colab_14 drift_test lesson). In-domain slices are supplementary and NOT comparable across studies. Eval #2: k-NN load-bearing, silhouette corroborating-only."
   }
 }
