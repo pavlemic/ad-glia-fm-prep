@@ -1003,5 +1003,96 @@
     "detector2_primary_gate": "pass",
     "colab_12_gate": [],
     "note": "eval#3 and detector#2 are one k-NN read two ways. PBMC's myeloid overlap with microglia may under-detect forgetting; Tabula Sapiens is the stricter breadth swap."
+  },
+  "geneformer_cpt_per_study": {
+    "status": "computed",
+    "date": "2026-07-25",
+    "regime": "per_study",
+    "seed": 0,
+    "model_dir": "Geneformer-V2-104M",
+    "geneformer_commit": "04c2b2e84da7c0f385c3f9ad8f3ec24bab6650e5",
+    "n_cells": 142588,
+    "emb_dim": 768,
+    "budget_rule": "epoch-matched to aggregated run",
+    "target_epochs": 0.6739,
+    "lora": {
+      "r": 8,
+      "alpha": 16,
+      "dropout": 0.05,
+      "targets": [
+        "query",
+        "key",
+        "value",
+        "dense"
+      ]
+    },
+    "train_common": {
+      "grad_accum": 4,
+      "batch": 8,
+      "eff_batch": 32,
+      "lr": 0.0005,
+      "mlm_prob": 0.15
+    },
+    "per_study": {
+      "SEA-AD": {
+        "slug": "seaad",
+        "n_train": 51218,
+        "n_val": 10911,
+        "max_steps": 1079,
+        "epochs": 0.674,
+        "train_loss": 2.0649,
+        "detector_1": {
+          "drift_all": 0.005429863929748535,
+          "drift_test": 0.0052675604820251465,
+          "noise_floor": 0.0,
+          "gate": "held-out test (own study only)",
+          "inert": false,
+          "pct_of_substate_ref_micro": 14.4,
+          "pct_of_substate_ref_astro": 11.9
+        },
+        "adapter_file": "geneformer/cpt_per_study_seaad_seed0_adapter",
+        "embedding_file": "geneformer/glia_geneformer_cpt_per_study_seaad_seed0.h5ad"
+      },
+      "Li2025": {
+        "slug": "li2025",
+        "n_train": 31349,
+        "n_val": 8385,
+        "max_steps": 660,
+        "epochs": 0.674,
+        "train_loss": 2.1623,
+        "detector_1": {
+          "drift_all": 0.0029965639114379883,
+          "drift_test": 0.005065202713012695,
+          "noise_floor": 0.0,
+          "gate": "held-out test (own study only)",
+          "inert": false,
+          "pct_of_substate_ref_micro": 13.9,
+          "pct_of_substate_ref_astro": 11.5
+        },
+        "adapter_file": "geneformer/cpt_per_study_li2025_seed0_adapter",
+        "embedding_file": "geneformer/glia_geneformer_cpt_per_study_li2025_seed0.h5ad"
+      },
+      "Haney2024": {
+        "slug": "haney2024",
+        "n_train": 12396,
+        "n_val": 4528,
+        "max_steps": 261,
+        "epochs": 0.674,
+        "train_loss": 2.1143,
+        "detector_1": {
+          "drift_all": 0.0035895705223083496,
+          "drift_test": 0.00504910945892334,
+          "noise_floor": 0.0,
+          "gate": "held-out test (own study only)",
+          "inert": false,
+          "pct_of_substate_ref_micro": 13.8,
+          "pct_of_substate_ref_astro": 11.4
+        },
+        "adapter_file": "geneformer/cpt_per_study_haney2024_seed0_adapter",
+        "embedding_file": "geneformer/glia_geneformer_cpt_per_study_haney2024_seed0.h5ad"
+      }
+    },
+    "donor_split_file": "outputs/donor_split.json",
+    "compare_to": "geneformer_cpt_aggregated_v2"
   }
 }
