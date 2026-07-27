@@ -1991,9 +1991,14 @@
       }
     },
     "detector_2_gate": {
-      "status": "not_run_for_scgpt",
-      "any_verdict_pending_gate": false,
-      "note": "docs/EVALUATION_CONTRACT.md requires clearing detector #2 (forgetting) in addition to the meaningful band before any result is read as a win. A forgetting probe exists only for the Geneformer aggregated checkpoint (geneformer_cpt_forgetting); there is none for scGPT. Any meaningful/decisive verdict recorded here is UNGATED -- a candidate win pending that probe, not a confirmed one. Given colab_16's drift exceeds the substate reference distance, forgetting is a live question for this checkpoint rather than a formality."
+      "status": "run",
+      "source": "scgpt_cpt_forgetting",
+      "date": "2026-07-27",
+      "drop_pp": -0.99,
+      "eval3_verdict": "acceptable",
+      "gate": "pass",
+      "gated_verdicts": [],
+      "note": "colab_17 recorded this as not_run_for_scgpt; the forgetting probe has now run on the same checkpoint and this field records its outcome (operative source: deterministic_subset)."
     },
     "embedding_files": {
       "zeroshot": "scgpt/glia_scgpt_zeroshot.h5ad",
@@ -2008,5 +2013,158 @@
       ]
     },
     "note": "Evals #1 and #2 for the scGPT aggregated CPT checkpoint, on the same frozen donor-held-out split as colab_12/15. Single <cls> extraction point (complete, not partial -- see extraction_point). Eval #2: k-NN load-bearing, silhouette corroborating-only."
+  },
+  "scgpt_cpt_forgetting": {
+    "status": "computed",
+    "date": "2026-07-27",
+    "fm": "scgpt",
+    "reads_run": "scgpt_cpt_aggregated",
+    "run_tag": "seed0",
+    "scgpt_commit": "cebd6fae655b9c585a4807daa3ac31bb764f06b4",
+    "reference": "pbmc",
+    "reference_file": "reference/pbmc_reference.h5ad",
+    "n_ref_cells": 13738,
+    "n_cell_types": 8,
+    "cellset_exact_vs_geneformer": true,
+    "n_cells_no_invocab_gene": 0,
+    "vocab_audit": {
+      "frac_in_vocab": 0.8869,
+      "symbol_case": "as_given"
+    },
+    "extraction_point": {
+      "readout": "<cls> at the top of the encoder",
+      "complete": true,
+      "note": "every LoRA target is upstream of the readout and the ExprDecoder is frozen downstream, so a single extraction point sees the complete adapted representation -- unlike the Geneformer arm, which needed L-1 and L0"
+    },
+    "split": {
+      "kind": "donor-disjoint",
+      "seed": 0,
+      "test_size": 0.3,
+      "n_train": 5990,
+      "n_test": 7616,
+      "min_cells_per_type": 50,
+      "min_test_per_type": 20,
+      "types_scored": [
+        "B cells",
+        "CD14+ Monocytes",
+        "CD4 T cells",
+        "CD8 T cells",
+        "Dendritic cells",
+        "FCGR3A+ Monocytes",
+        "NK cells"
+      ],
+      "types_excluded_thin_test": [
+        "Megakaryocytes"
+      ],
+      "types_dropped_rare": []
+    },
+    "eval3_detector2": {
+      "k_neighbors": 15,
+      "acc_base_passes": [
+        0.91,
+        0.911,
+        0.9106,
+        0.9093,
+        0.91
+      ],
+      "acc_cpt_passes": [
+        0.9202,
+        0.9204,
+        0.92,
+        0.9198,
+        0.9211
+      ],
+      "acc_base_mean": 0.9102,
+      "acc_cpt_mean": 0.9203,
+      "drop_pp": -1.01,
+      "eval3_verdict": "acceptable",
+      "detector2_gate": "pass",
+      "n_types_scored": 7,
+      "excluded_types": [
+        "Megakaryocytes"
+      ]
+    },
+    "measured_null": {
+      "n_base_passes": 5,
+      "n_cpt_passes": 5,
+      "within_arm_pairs": 20,
+      "null_mean_abs_pp": 0.067,
+      "null_max_abs_pp": 0.162,
+      "cross_arm_range_pp": [
+        -1.172,
+        -0.882
+      ],
+      "drop_above_null": true,
+      "note": "the null is every within-arm pass pair, where the true effect is zero by construction -- the widest null this run makes available. Contract bands were applied to the drop unchanged; the null is reported alongside, not substituted for them."
+    },
+    "stochasticity": {
+      "frac_cells_over_context": 0.0138,
+      "max_length": 1200,
+      "determinism_check_max_dev": 0.0,
+      "n_cells_used_for_stability": 190,
+      "pass_instability_base": 0.000542,
+      "pass_instability_cpt": 0.000292,
+      "pass_instability_ratio_cpt_over_base": 0.54,
+      "note": "measured on over-context cells only (see 5c); null/not-a-number when there were too few of them to trust the median. If the CPT arm is quieter than the base arm, its k-NN is measured under less embedding noise, which SHRINKS the drop and makes detector #2 anti-conservative. The deterministic-subset read is the control for it."
+    },
+    "deterministic_subset": {
+      "n_types": 7,
+      "types": [
+        "B cells",
+        "CD14+ Monocytes",
+        "CD4 T cells",
+        "CD8 T cells",
+        "Dendritic cells",
+        "FCGR3A+ Monocytes",
+        "NK cells"
+      ],
+      "full_coverage": true,
+      "n_train": 5887,
+      "n_test": 7529,
+      "acc_base": 0.9073,
+      "acc_cpt": 0.9172,
+      "drop_pp": -0.99,
+      "eval3_verdict": "acceptable",
+      "detector2_gate": "pass",
+      "max_pass_deviation_base": 0.0,
+      "max_pass_deviation_cpt": 0.0
+    },
+    "operative_gate": {
+      "source": "deterministic_subset",
+      "eligible": true,
+      "drop_pp": -0.99,
+      "eval3_verdict": "acceptable",
+      "detector2_gate": "pass",
+      "note": "the value applied to colab_17's detector_2_gate field below and used in the composite scGPT-arc conclusion above; eval3_detector2 above always records the full-reference read regardless, for cross-FM comparability. Promoted to the deterministic subset only when it is available, scores the same type set as the primary read, AND stab_ratio < 0.80 -- conditions fixed before either drop was inspected."
+    },
+    "detector2_primary_gate": "pass",
+    "cross_fm": {
+      "geneformer": {
+        "L-1": {
+          "acc_zeroshot": 0.8833,
+          "acc_cpt": 0.8825,
+          "drop_pp": 0.09,
+          "eval3_verdict": "acceptable",
+          "detector2_gate": "pass",
+          "n_types_scored": 7,
+          "excluded_types": [
+            "Megakaryocytes"
+          ]
+        },
+        "L0": {
+          "acc_zeroshot": 0.9329,
+          "acc_cpt": 0.9305,
+          "drop_pp": 0.24,
+          "eval3_verdict": "acceptable",
+          "detector2_gate": "pass",
+          "n_types_scored": 7,
+          "excluded_types": [
+            "Megakaryocytes"
+          ]
+        }
+      },
+      "note": "same reference, cap, seed, split and k-NN settings; cell-set identity asserted at 2b and scored-class identity at 5a. Geneformer read at two extraction points, scGPT at one that is complete by construction."
+    },
+    "note": "eval #3 and detector #2 are one k-NN read two ways. PBMC's myeloid overlap with microglia may under-detect forgetting in that lineage; the lymphoid types carry the out-of-domain part of the probe. Tabula Sapiens is the stricter breadth swap but would forfeit comparability with colab_13 unless that notebook were re-run."
   }
 }

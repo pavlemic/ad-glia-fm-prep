@@ -1,0 +1,20 @@
+{
+  "notebook_id": "colab_18",
+  "date": "2026-07-27",
+  "smoke": false,
+  "python_version": "3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+  "os_release": "6.6.122+",
+  "gpu": "GPU 0: NVIDIA A100-SXM4-80GB (UUID: GPU-94180dc5-246a-1f5f-33e8-44e53d05be1a)",
+  "cuda": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+  "git_commit": "6fac0052754fefa0e36d482f9bc5bfe3a653cc61",
+  "scgpt_commit": "cebd6fae655b9c585a4807daa3ac31bb764f06b4",
+  "scgpt_version": "0.2.5",
+  "peft_version": "0.19.1",
+  "scanpy_version": "1.12.3",
+  "anndata_version": "0.13.2",
+  "sklearn_version": "1.6.1",
+  "torch_version": "2.11.0+cu128",
+  "numpy_version": "2.4.6",
+  "model_checkpoint": "scgpt_whole_human"
+}
