@@ -1779,5 +1779,234 @@
     "embedding_file": "scgpt/glia_scgpt_cpt_aggregated_seed0.h5ad",
     "zeroshot_baseline_file": "scgpt/glia_scgpt_zeroshot.h5ad",
     "note": "detector #1 is gated on a floor measured in THIS run, not the Geneformer 0.0000 -- scGPT randomly subsamples cells above its context length, so repeat embedding is not deterministic. The substate magnitude anchor is likewise recomputed in scGPT's own embedding space and is not comparable to the Geneformer values."
+  },
+  "scgpt_cpt_evals": {
+    "status": "computed",
+    "date": "2026-07-27",
+    "fm": "scgpt",
+    "regime": "aggregated",
+    "checkpoint_tag": "seed0",
+    "reads_run": "scgpt_cpt_aggregated",
+    "reference_runs": [
+      "scgpt_zeroshot"
+    ],
+    "scgpt_commit": "cebd6fae655b9c585a4807daa3ac31bb764f06b4",
+    "donor_split_seed": 32,
+    "n_cells": 142588,
+    "extraction_point": {
+      "readout": "<cls> position at the top of the encoder (single point)",
+      "why_single": "every LoRA target (self_attn/linear1/linear2 across the encoder layers) is upstream of the <cls> readout and the ExprDecoder that produced the CPT loss is frozen and downstream, so there is no head-absorption analogue to the Geneformer arm and no dual-extraction requirement: this readout sees the complete adapted representation"
+    },
+    "power_floors": {
+      "min_test_donors": 3,
+      "min_test_cells": 100,
+      "note": "min_test_cells is a heuristic plausibility floor against single-donor-dominated / thin classes, not a derived statistical bound -- see docs/EVALUATION_CONTRACT.md"
+    },
+    "noise_floor": {
+      "measured_this_run": true,
+      "n_base_passes": 3,
+      "n_cpt_passes": 3,
+      "embedding_null_base_vs_base": [
+        0.003629,
+        0.003626,
+        0.00363
+      ],
+      "embedding_base_fresh_vs_stored": [
+        0.00364,
+        0.003641,
+        0.00363
+      ],
+      "embedding_cpt_fresh_vs_stored": [
+        0.0015,
+        0.001497,
+        0.0015
+      ],
+      "detector_1_floor_recorded": 0.0036469697952270508,
+      "note": "scGPT randomly subsamples the genes of any cell above its context length (86.34% of this substrate), so repeat embedding is non-deterministic and a small eval delta cannot be separated from that stochasticity by inspection. The null is base-pass-vs-base-pass, where the true effect is zero by construction. Contract bands are reported unchanged alongside it -- the measured null was NOT used to move any threshold."
+    },
+    "detector_1_reference": {
+      "drift_all_recomputed": 0.080902,
+      "drift_all_recorded": 0.08090221881866455,
+      "drift_global_test": 0.081154,
+      "drift_pct_of_substate_reference": {
+        "microglia": 234.5,
+        "astrocyte": 149.3
+      },
+      "units_note": "cosine distance 1-cos(theta); a ratio of these is not a ratio of angles"
+    },
+    "eval1_substate_probe": {
+      "microglia": {
+        "bacc_zeroshot": 0.9047,
+        "bacc_cpt": 0.8955,
+        "delta_pp": -0.92,
+        "verdict": "noise",
+        "null_check": "exceeds_measured_null",
+        "bacc_by_variant": {
+          "zeroshot": 0.9047,
+          "cpt": 0.8955,
+          "base_p1": 0.8948,
+          "base_p2": 0.8926,
+          "base_p3": 0.8937,
+          "cpt_p1": 0.9015,
+          "cpt_p2": 0.8927,
+          "cpt_p3": 0.8974
+        },
+        "null_deltas_pp": [
+          0.2225,
+          0.1131,
+          -0.1094
+        ],
+        "null_max_abs_pp": 0.2225,
+        "replicate_deltas_pp": [
+          0.6702,
+          0.8927,
+          0.7833,
+          -0.2076,
+          0.0149,
+          -0.0945,
+          0.2624,
+          0.4849,
+          0.3755
+        ],
+        "replicate_mean_pp": 0.3535,
+        "replicate_sd_pp": 0.3925
+      },
+      "astrocyte": {
+        "bacc_zeroshot": 0.7756,
+        "bacc_cpt": 0.7772,
+        "delta_pp": 0.16,
+        "verdict": "noise",
+        "null_check": "within_measured_null",
+        "bacc_by_variant": {
+          "zeroshot": 0.7756,
+          "cpt": 0.7772,
+          "base_p1": 0.7762,
+          "base_p2": 0.7712,
+          "base_p3": 0.7696,
+          "cpt_p1": 0.7779,
+          "cpt_p2": 0.7752,
+          "cpt_p3": 0.7771
+        },
+        "null_deltas_pp": [
+          0.4968,
+          0.6566,
+          0.1597
+        ],
+        "null_max_abs_pp": 0.6566,
+        "replicate_deltas_pp": [
+          0.1746,
+          0.6715,
+          0.8312,
+          -0.091,
+          0.4059,
+          0.5656,
+          0.0999,
+          0.5967,
+          0.7565
+        ],
+        "replicate_mean_pp": 0.4457,
+        "replicate_sd_pp": 0.3194
+      }
+    },
+    "eval2_apoe_recovery": {
+      "microglia": {
+        "knn_bacc_zeroshot": 0.4783,
+        "knn_bacc_cpt": 0.4533,
+        "knn_delta_pp": -2.5,
+        "knn_verdict": "noise",
+        "knn_null_deltas_pp": [
+          -1.0256,
+          -1.013,
+          0.0126
+        ],
+        "knn_null_max_abs_pp": 1.0256,
+        "knn_replicate_mean_pp": -2.393,
+        "knn_replicate_sd_pp": 0.7097,
+        "knn_null_check": "exceeds_measured_null",
+        "knn_at_or_below_chance": true,
+        "sil_zeroshot": 0.0545,
+        "sil_cpt": 0.0591,
+        "sil_delta": 0.0046,
+        "sil_verdict": "noise",
+        "sil_null_deltas": [
+          -0.0012,
+          -0.0008,
+          0.0004
+        ],
+        "sil_null_max_abs": 0.0012,
+        "sil_replicate_mean": 0.0049,
+        "sil_replicate_sd": 0.0006,
+        "sil_null_check": "exceeds_measured_null",
+        "sil_role": "corroborating_only",
+        "knn_bacc_by_variant": {
+          "zeroshot": 0.4783,
+          "cpt": 0.4533,
+          "base_p1": 0.4717,
+          "base_p2": 0.4819,
+          "base_p3": 0.4818,
+          "cpt_p1": 0.4481,
+          "cpt_p2": 0.4588,
+          "cpt_p3": 0.4568
+        }
+      },
+      "astrocyte": {
+        "knn_bacc_zeroshot": 0.4021,
+        "knn_bacc_cpt": 0.4095,
+        "knn_delta_pp": 0.73,
+        "knn_verdict": "noise",
+        "knn_null_deltas_pp": [
+          -0.1866,
+          -0.3871,
+          -0.2006
+        ],
+        "knn_null_max_abs_pp": 0.3871,
+        "knn_replicate_mean_pp": 1.1976,
+        "knn_replicate_sd_pp": 0.2972,
+        "knn_null_check": "exceeds_measured_null",
+        "knn_at_or_below_chance": true,
+        "sil_zeroshot": 0.0606,
+        "sil_cpt": 0.0543,
+        "sil_delta": -0.0064,
+        "sil_verdict": "regression",
+        "sil_null_deltas": [
+          -0.0002,
+          -0.0004,
+          -0.0002
+        ],
+        "sil_null_max_abs": 0.0004,
+        "sil_replicate_mean": -0.0071,
+        "sil_replicate_sd": 0.0003,
+        "sil_null_check": "exceeds_measured_null",
+        "sil_role": "corroborating_only",
+        "knn_bacc_by_variant": {
+          "zeroshot": 0.4021,
+          "cpt": 0.4095,
+          "base_p1": 0.3952,
+          "base_p2": 0.3971,
+          "base_p3": 0.3991,
+          "cpt_p1": 0.4084,
+          "cpt_p2": 0.4067,
+          "cpt_p3": 0.4122
+        }
+      }
+    },
+    "detector_2_gate": {
+      "status": "not_run_for_scgpt",
+      "any_verdict_pending_gate": false,
+      "note": "docs/EVALUATION_CONTRACT.md requires clearing detector #2 (forgetting) in addition to the meaningful band before any result is read as a win. A forgetting probe exists only for the Geneformer aggregated checkpoint (geneformer_cpt_forgetting); there is none for scGPT. Any meaningful/decisive verdict recorded here is UNGATED -- a candidate win pending that probe, not a confirmed one. Given colab_16's drift exceeds the substate reference distance, forgetting is a live question for this checkpoint rather than a formality."
+    },
+    "embedding_files": {
+      "zeroshot": "scgpt/glia_scgpt_zeroshot.h5ad",
+      "cpt": "scgpt/glia_scgpt_cpt_aggregated_seed0.h5ad",
+      "floor_passes": [
+        "scgpt/floor/glia_scgpt_base_p1_ccebd6fa.h5ad",
+        "scgpt/floor/glia_scgpt_base_p2_ccebd6fa.h5ad",
+        "scgpt/floor/glia_scgpt_base_p3_ccebd6fa.h5ad",
+        "scgpt/floor/glia_scgpt_cptmerged_p1_ccebd6fa.h5ad",
+        "scgpt/floor/glia_scgpt_cptmerged_p2_ccebd6fa.h5ad",
+        "scgpt/floor/glia_scgpt_cptmerged_p3_ccebd6fa.h5ad"
+      ]
+    },
+    "note": "Evals #1 and #2 for the scGPT aggregated CPT checkpoint, on the same frozen donor-held-out split as colab_12/15. Single <cls> extraction point (complete, not partial -- see extraction_point). Eval #2: k-NN load-bearing, silhouette corroborating-only."
   }
 }
