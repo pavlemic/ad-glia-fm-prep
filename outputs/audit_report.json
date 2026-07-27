@@ -1415,5 +1415,369 @@
       "L0": null
     },
     "note": "Primary = all variants on the same global held-out cells (population-matched, the colab_14 drift_test lesson). In-domain slices are supplementary and NOT comparable across studies. Eval #2: k-NN load-bearing, silhouette corroborating-only."
+  },
+  "scgpt_cpt_aggregated": {
+    "status": "computed",
+    "date": "2026-07-27",
+    "regime": "aggregated",
+    "fm": "scgpt",
+    "training_seed": 0,
+    "donor_split_seed": 32,
+    "model_dir": "scgpt_whole_human",
+    "scgpt_commit": "cebd6fae655b9c585a4807daa3ac31bb764f06b4",
+    "peft_version": "0.19.1",
+    "n_cells": 142588,
+    "n_train_cells": 94963,
+    "emb_dim": 512,
+    "max_length": 1200,
+    "frac_cells_over_context": 0.8634,
+    "vocab_audit": {
+      "vocab_size": 60697,
+      "n_genes_panel": 26514,
+      "n_in_vocab": 19977,
+      "frac_in_vocab": 0.7535,
+      "niche_status": {
+        "APOE": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "TREM2": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "MS4A6A": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "CLU": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "GFAP": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "AQP4": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "AIF1": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "CSF1R": {
+          "in_panel": true,
+          "in_vocab": true
+        }
+      },
+      "niche_warnings": [],
+      "apoe_hard_fail_gate": "passed"
+    },
+    "lora": {
+      "r": 8,
+      "alpha": 16,
+      "dropout": 0.05,
+      "targets": "transformer_encoder\\.layers\\.\\d+\\.(self_attn|linear1|linear2)$",
+      "trainable_params": 491520,
+      "frozen_params": 51856898
+    },
+    "train": {
+      "max_steps": 2000,
+      "grad_accum": 4,
+      "batch": 8,
+      "effective_batch": 32,
+      "lr": 0.0005,
+      "warmup_ratio": 0.05,
+      "mlm_prob": 0.15,
+      "eval_steps": 250,
+      "val_eval_cap": 2000,
+      "val_eval_seed": 0,
+      "n_val_eval_cells": 2000,
+      "n_val_full_cells": 23824,
+      "epochs_equiv": 0.6739,
+      "train_loss_mean": 152.533,
+      "train_loss_final": 150.9846,
+      "eval_loss_final": 149.7601,
+      "log_history": [
+        {
+          "step": 50,
+          "train_loss": 189.91673431396484,
+          "lr": 0.00025
+        },
+        {
+          "step": 100,
+          "train_loss": 155.65141227722168,
+          "lr": 0.0005
+        },
+        {
+          "step": 150,
+          "train_loss": 153.57114181518554,
+          "lr": 0.0004868421052631579
+        },
+        {
+          "step": 200,
+          "train_loss": 152.6476435852051,
+          "lr": 0.00047368421052631577
+        },
+        {
+          "step": 250,
+          "train_loss": 152.23192893981934,
+          "lr": 0.0004605263157894737
+        },
+        {
+          "step": 250,
+          "eval_loss": 151.24815437134228
+        },
+        {
+          "step": 300,
+          "train_loss": 152.79078659057618,
+          "lr": 0.0004473684210526316
+        },
+        {
+          "step": 350,
+          "train_loss": 152.19308311462402,
+          "lr": 0.0004342105263157895
+        },
+        {
+          "step": 400,
+          "train_loss": 152.00953041076662,
+          "lr": 0.00042105263157894734
+        },
+        {
+          "step": 450,
+          "train_loss": 151.36151947021483,
+          "lr": 0.00040789473684210524
+        },
+        {
+          "step": 500,
+          "train_loss": 151.41993057250977,
+          "lr": 0.00039473684210526315
+        },
+        {
+          "step": 500,
+          "eval_loss": 150.54498770166626
+        },
+        {
+          "step": 550,
+          "train_loss": 152.11973323822022,
+          "lr": 0.00038157894736842105
+        },
+        {
+          "step": 600,
+          "train_loss": 152.15004745483398,
+          "lr": 0.00036842105263157896
+        },
+        {
+          "step": 650,
+          "train_loss": 152.96545768737792,
+          "lr": 0.00035526315789473687
+        },
+        {
+          "step": 700,
+          "train_loss": 151.43069274902345,
+          "lr": 0.00034210526315789477
+        },
+        {
+          "step": 750,
+          "train_loss": 152.02622833251954,
+          "lr": 0.0003289473684210527
+        },
+        {
+          "step": 750,
+          "eval_loss": 149.88857147623344
+        },
+        {
+          "step": 800,
+          "train_loss": 152.03722633361815,
+          "lr": 0.00031578947368421053
+        },
+        {
+          "step": 850,
+          "train_loss": 151.70348655700684,
+          "lr": 0.00030263157894736844
+        },
+        {
+          "step": 900,
+          "train_loss": 151.92919273376464,
+          "lr": 0.00028947368421052634
+        },
+        {
+          "step": 950,
+          "train_loss": 151.10160209655763,
+          "lr": 0.00027631578947368425
+        },
+        {
+          "step": 1000,
+          "train_loss": 150.83629119873046,
+          "lr": 0.0002631578947368421
+        },
+        {
+          "step": 1000,
+          "eval_loss": 149.9371944981135
+        },
+        {
+          "step": 1050,
+          "train_loss": 151.63734985351562,
+          "lr": 0.00025
+        },
+        {
+          "step": 1100,
+          "train_loss": 150.7174016571045,
+          "lr": 0.00023684210526315788
+        },
+        {
+          "step": 1150,
+          "train_loss": 150.46296710968016,
+          "lr": 0.0002236842105263158
+        },
+        {
+          "step": 1200,
+          "train_loss": 151.663122215271,
+          "lr": 0.00021052631578947367
+        },
+        {
+          "step": 1250,
+          "train_loss": 151.60078857421874,
+          "lr": 0.00019736842105263157
+        },
+        {
+          "step": 1250,
+          "eval_loss": 149.47336177783126
+        },
+        {
+          "step": 1300,
+          "train_loss": 150.91119232177735,
+          "lr": 0.00018421052631578948
+        },
+        {
+          "step": 1350,
+          "train_loss": 150.93886810302735,
+          "lr": 0.00017105263157894739
+        },
+        {
+          "step": 1400,
+          "train_loss": 150.88212181091308,
+          "lr": 0.00015789473684210527
+        },
+        {
+          "step": 1450,
+          "train_loss": 151.79379943847655,
+          "lr": 0.00014473684210526317
+        },
+        {
+          "step": 1500,
+          "train_loss": 150.77622119903563,
+          "lr": 0.00013157894736842105
+        },
+        {
+          "step": 1500,
+          "eval_loss": 150.1406577672926
+        },
+        {
+          "step": 1550,
+          "train_loss": 151.4653411102295,
+          "lr": 0.00011842105263157894
+        },
+        {
+          "step": 1600,
+          "train_loss": 151.1624008178711,
+          "lr": 0.00010526315789473683
+        },
+        {
+          "step": 1650,
+          "train_loss": 150.38309398651123,
+          "lr": 9.210526315789474e-05
+        },
+        {
+          "step": 1700,
+          "train_loss": 150.55300384521485,
+          "lr": 7.894736842105263e-05
+        },
+        {
+          "step": 1750,
+          "train_loss": 151.34589893341064,
+          "lr": 6.578947368421052e-05
+        },
+        {
+          "step": 1750,
+          "eval_loss": 149.63072207593646
+        },
+        {
+          "step": 1800,
+          "train_loss": 150.40573448181152,
+          "lr": 5.263157894736842e-05
+        },
+        {
+          "step": 1850,
+          "train_loss": 151.3770108795166,
+          "lr": 3.9473684210526316e-05
+        },
+        {
+          "step": 1900,
+          "train_loss": 150.6639483642578,
+          "lr": 2.631578947368421e-05
+        },
+        {
+          "step": 1950,
+          "train_loss": 149.50219917297363,
+          "lr": 1.3157894736842104e-05
+        },
+        {
+          "step": 2000,
+          "train_loss": 150.9845821380615,
+          "lr": 0.0
+        },
+        {
+          "step": 2000,
+          "eval_loss": 149.7601003039501
+        }
+      ],
+      "wall_clock_seconds": 705.7
+    },
+    "detector_1": {
+      "drift_all": 0.08090221881866455,
+      "drift_test": 0.08115410804748535,
+      "drift_test_by_lineage": {
+        "astrocyte": 0.0784447193145752,
+        "microglia": 0.08435410261154175
+      },
+      "noise_floor_measured": 0.0036469697952270508,
+      "noise_floor_vs_stored_test": 0.0036278367042541504,
+      "noise_floor_vs_repeat_test": 0.0036469697952270508,
+      "floor_excess_stored_minus_repeat": -1.913309097290039e-05,
+      "fidelity_ok": true,
+      "drift_over_floor": 22.25247605661426,
+      "gate": "held-out test",
+      "inert": false
+    },
+    "substate_reference_scgpt_space": {
+      "microglia": {
+        "within_donor": 0.03597712516784668,
+        "pooled": 0.0544201135635376,
+        "n_donors": 36,
+        "iqr": [
+          0.030495598912239075,
+          0.043113306164741516
+        ]
+      },
+      "astrocyte": {
+        "within_donor": 0.052558958530426025,
+        "pooled": 0.06252706050872803,
+        "n_donors": 78,
+        "iqr": [
+          0.043786704540252686,
+          0.061059847474098206
+        ]
+      }
+    },
+    "drift_pct_of_substate_reference": {
+      "microglia": 234.5,
+      "astrocyte": 149.3
+    },
+    "donor_split_file": "outputs/donor_split.json",
+    "adapter_file": "scgpt/cpt_aggregated_seed0_adapter",
+    "embedding_file": "scgpt/glia_scgpt_cpt_aggregated_seed0.h5ad",
+    "zeroshot_baseline_file": "scgpt/glia_scgpt_zeroshot.h5ad",
+    "note": "detector #1 is gated on a floor measured in THIS run, not the Geneformer 0.0000 -- scGPT randomly subsamples cells above its context length, so repeat embedding is not deterministic. The substate magnitude anchor is likewise recomputed in scGPT's own embedding space and is not comparable to the Geneformer values."
   }
 }
