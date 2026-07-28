@@ -2166,5 +2166,387 @@
       "note": "same reference, cap, seed, split and k-NN settings; cell-set identity asserted at 2b and scored-class identity at 5a. Geneformer read at two extraction points, scGPT at one that is complete by construction."
     },
     "note": "eval #3 and detector #2 are one k-NN read two ways. PBMC's myeloid overlap with microglia may under-detect forgetting in that lineage; the lymphoid types carry the out-of-domain part of the probe. Tabula Sapiens is the stricter breadth swap but would forfeit comparability with colab_13 unless that notebook were re-run."
+  },
+  "scgpt_cpt_per_study": {
+    "status": "computed",
+    "date": "2026-07-28",
+    "regime": "per_study",
+    "fm": "scgpt",
+    "training_seed": 0,
+    "donor_split_seed": 32,
+    "model_dir": "scgpt_whole_human",
+    "scgpt_commit": "cebd6fae655b9c585a4807daa3ac31bb764f06b4",
+    "peft_version": "0.19.1",
+    "deterministic_binning": true,
+    "determinism_check_maxabs": 0.0,
+    "n_cells": 142588,
+    "emb_dim": 512,
+    "max_length": 1200,
+    "vocab_audit": {
+      "vocab_size": 60697,
+      "n_genes_panel": 26514,
+      "n_in_vocab": 19977,
+      "frac_in_vocab": 0.7535,
+      "niche_status": {
+        "APOE": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "TREM2": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "GFAP": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "AQP4": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "CSF1R": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "AIF1": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "CLU": {
+          "in_panel": true,
+          "in_vocab": true
+        },
+        "MS4A6A": {
+          "in_panel": true,
+          "in_vocab": true
+        }
+      },
+      "niche_warnings": [],
+      "apoe_hard_fail_gate": "passed"
+    },
+    "budget_rule": "epoch-matched to the aggregated run",
+    "target_epochs": 0.6739,
+    "lora": {
+      "r": 8,
+      "alpha": 16,
+      "dropout": 0.05,
+      "targets": "transformer_encoder\\.layers\\.\\d+\\.(self_attn|linear1|linear2)$",
+      "trainable_params": 491520
+    },
+    "train_common": {
+      "grad_accum": 4,
+      "batch": 8,
+      "eff_batch": 32,
+      "lr": 0.0005,
+      "mlm_prob": 0.15,
+      "binning_during_training": "stock (matches colab_16)"
+    },
+    "noise_floor_measured": 0.0021981000900268555,
+    "noise_floor_vs_stored_baseline": 0.027635812759399414,
+    "colab16_floor_stock_binning": 0.00365,
+    "input_geometry_by_study": {
+      "SEA-AD": {
+        "n_cells": 75634,
+        "pre_cap_median_genes": 2977.0,
+        "frac_over_cap": 0.9796,
+        "post_cap_median_len": 1200.0,
+        "post_cap_iqr": [
+          1200.0,
+          1200.0
+        ]
+      },
+      "Li2025": {
+        "n_cells": 46870,
+        "pre_cap_median_genes": 1670.0,
+        "frac_over_cap": 0.6914,
+        "post_cap_median_len": 1200.0,
+        "post_cap_iqr": [
+          1086.0,
+          1200.0
+        ]
+      },
+      "Haney2024": {
+        "n_cells": 20084,
+        "pre_cap_median_genes": 2165.0,
+        "frac_over_cap": 0.8273,
+        "post_cap_median_len": 1200.0,
+        "post_cap_iqr": [
+          1200.0,
+          1200.0
+        ]
+      }
+    },
+    "pre_cap_spread": 1.782634730538922,
+    "post_cap_spread": 1.0,
+    "flattening_factor": 1.782634730538922,
+    "premise_ok": true,
+    "premise_thresholds": {
+      "max_post_cap_spread": 1.05,
+      "min_pre_cap_spread": 1.3
+    },
+    "per_study": {
+      "SEA-AD": {
+        "slug": "seaad",
+        "n_train": 51218,
+        "n_val": 10911,
+        "max_steps": 1079,
+        "epochs": 0.6741,
+        "train_seconds": 426.9,
+        "train_loss_mean": 147.64030275707228,
+        "eval_loss_first": 146.35234839245288,
+        "eval_loss_final": 144.87186213073875,
+        "eval_curve": [
+          [
+            134,
+            146.3523
+          ],
+          [
+            268,
+            145.2818
+          ],
+          [
+            402,
+            145.0565
+          ],
+          [
+            536,
+            144.9189
+          ],
+          [
+            670,
+            145.1207
+          ],
+          [
+            804,
+            144.7566
+          ],
+          [
+            938,
+            144.7003
+          ],
+          [
+            1072,
+            144.9733
+          ],
+          [
+            1079,
+            144.8719
+          ]
+        ],
+        "adapter_file": "cpt_per_study_seaad_seed0_adapter",
+        "detector_1": {
+          "drift_all": 0.046320438385009766,
+          "drift_test": 0.05336028337478638,
+          "drift_test_by_lineage": {
+            "astrocyte": 0.0525895357131958,
+            "microglia": 0.054605185985565186
+          },
+          "n_test_cells": 13505,
+          "noise_floor_measured": 0.0021981000900268555,
+          "drift_over_floor": 24.27563859211454,
+          "inert": false,
+          "verdict": "REAL"
+        },
+        "pct_of_substate_ref": {
+          "microglia": 189.7,
+          "astrocyte": 123.8
+        },
+        "embedding_file": "glia_scgpt_cpt_per_study_seaad_seed0.h5ad"
+      },
+      "Li2025": {
+        "slug": "li2025",
+        "n_train": 31349,
+        "n_val": 8385,
+        "max_steps": 660,
+        "epochs": 0.6737,
+        "train_seconds": 289.9,
+        "train_loss_mean": 163.7949383648959,
+        "eval_loss_first": 159.12055031710702,
+        "eval_loss_final": 157.18461048765747,
+        "eval_curve": [
+          [
+            82,
+            159.1206
+          ],
+          [
+            164,
+            158.1821
+          ],
+          [
+            246,
+            158.1866
+          ],
+          [
+            328,
+            157.1453
+          ],
+          [
+            410,
+            156.9458
+          ],
+          [
+            492,
+            157.1096
+          ],
+          [
+            574,
+            157.137
+          ],
+          [
+            656,
+            157.1356
+          ],
+          [
+            660,
+            157.1846
+          ]
+        ],
+        "adapter_file": "cpt_per_study_li2025_seed0_adapter",
+        "detector_1": {
+          "drift_all": 0.04096704721450806,
+          "drift_test": 0.0354083776473999,
+          "drift_test_by_lineage": {
+            "astrocyte": 0.032979369163513184,
+            "microglia": 0.03865939378738403
+          },
+          "n_test_cells": 7136,
+          "noise_floor_measured": 0.0021981000900268555,
+          "drift_over_floor": 16.108628450566734,
+          "inert": false,
+          "verdict": "REAL"
+        },
+        "pct_of_substate_ref": {
+          "microglia": 134.3,
+          "astrocyte": 77.6
+        },
+        "embedding_file": "glia_scgpt_cpt_per_study_li2025_seed0.h5ad"
+      },
+      "Haney2024": {
+        "slug": "haney2024",
+        "n_train": 12396,
+        "n_val": 4528,
+        "max_steps": 261,
+        "epochs": 0.6738,
+        "train_seconds": 166.1,
+        "train_loss_mean": 156.02578521962366,
+        "eval_loss_first": 156.21630012907724,
+        "eval_loss_final": 151.95608728712529,
+        "eval_curve": [
+          [
+            32,
+            156.2163
+          ],
+          [
+            64,
+            153.3658
+          ],
+          [
+            96,
+            152.3722
+          ],
+          [
+            128,
+            152.5213
+          ],
+          [
+            160,
+            152.3494
+          ],
+          [
+            192,
+            151.9984
+          ],
+          [
+            224,
+            151.4856
+          ],
+          [
+            256,
+            152.0279
+          ],
+          [
+            261,
+            151.9561
+          ]
+        ],
+        "adapter_file": "cpt_per_study_haney2024_seed0_adapter",
+        "detector_1": {
+          "drift_all": 0.04496794939041138,
+          "drift_test": 0.04441392421722412,
+          "drift_test_by_lineage": {
+            "astrocyte": 0.04397863149642944,
+            "microglia": 0.04590088129043579
+          },
+          "n_test_cells": 3160,
+          "noise_floor_measured": 0.0021981000900268555,
+          "drift_over_floor": 20.205596832800044,
+          "inert": false,
+          "verdict": "REAL"
+        },
+        "pct_of_substate_ref": {
+          "microglia": 159.4,
+          "astrocyte": 103.5
+        },
+        "embedding_file": "glia_scgpt_cpt_per_study_haney2024_seed0.h5ad"
+      }
+    },
+    "aggregated_same_path": {
+      "drift_all": 0.05314803123474121,
+      "drift_test": 0.05305999517440796,
+      "drift_test_by_study": {
+        "SEA-AD": 0.05941528081893921,
+        "Li2025": 0.043082475662231445,
+        "Haney2024": 0.04981875419616699
+      },
+      "adapter": "cpt_aggregated_seed0_adapter",
+      "embedding_file": "glia_scgpt_cpt_aggregated_repath_seed0.h5ad"
+    },
+    "drift_all_spread": 1.1306755437478995,
+    "geneformer_reference": {
+      "median_len": {
+        "SEA-AD": 2852,
+        "Li2025": 1612,
+        "Haney2024": 2077
+      },
+      "drift_all": {
+        "SEA-AD": 0.00543,
+        "Li2025": 0.003,
+        "Haney2024": 0.00359
+      },
+      "drift_spread": 1.81
+    },
+    "prediction_verdict": "CONSISTENT with the length explanation",
+    "pairwise_distance": {
+      "SEA-AD|Li2025": 0.012714922428131104,
+      "SEA-AD|Haney2024": 0.01745617389678955,
+      "Li2025|Haney2024": 0.00828254222869873
+    },
+    "pairwise_angle_deg": {
+      "SEA-AD|Li2025": 31.1,
+      "SEA-AD|Haney2024": 36.0,
+      "Li2025|Haney2024": 25.2
+    },
+    "substate_reference": {
+      "microglia": {
+        "within_donor": 0.02878764271736145,
+        "pooled": 0.0436708927154541,
+        "n_donors": 36,
+        "iqr": [
+          0.02286750078201294,
+          0.03559556603431702
+        ]
+      },
+      "astrocyte": {
+        "within_donor": 0.04248705506324768,
+        "pooled": 0.05058467388153076,
+        "n_donors": 78,
+        "iqr": [
+          0.034962430596351624,
+          0.05195692181587219
+        ]
+      }
+    },
+    "base_embedding_file": "glia_scgpt_base_detbin_seed0.h5ad",
+    "donor_split_file": "outputs/donor_split.json"
   }
 }

@@ -1,0 +1,18 @@
+{
+  "notebook": "colab_19",
+  "date": "2026-07-28",
+  "smoke": false,
+  "python": "3.12.13",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "peft": "0.19.1",
+  "scgpt_version": "0.2.5",
+  "scgpt_commit_pinned": "cebd6fae655b9c585a4807daa3ac31bb764f06b4",
+  "scanpy_version": "1.12.3",
+  "anndata_version": "0.13.2",
+  "numpy_version": "2.4.6",
+  "sklearn_version": "1.6.1",
+  "checkpoint_dir": "scgpt_whole_human"
+}
