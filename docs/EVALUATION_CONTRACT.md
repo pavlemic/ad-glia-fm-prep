@@ -2,7 +2,7 @@
 
 Pre-registration for the continued-pretraining (CPT) phase. Its single purpose is to **fix the success/failure criteria before any training result is seen**, so that conclusions cannot be reverse-engineered from the numbers.
 
-**Status:** PROVISIONAL. Thresholds below are first-pass estimates. They are refined **once**, numerically, after the N=1 pilot (see *Pilot → lock protocol*), then permanently locked. After the lock, any change is a reportable protocol deviation, not an edit.
+**Status:** LOCKED (2026-07-28), unchanged from their original provisional values. The pilot→lock protocol below called for a single numeric refinement pass immediately after the N=1 pilot (colab_11, 2026-07-10), before any further CPT results existed. That refinement pass was never executed at the time — the project moved straight from the pilot into the full Geneformer and scGPT arcs (colab_12–19), and by the time this gap was noticed, the complete final result set for both FMs existed. Deriving new numeric thresholds at that point, using the pilot's noise characteristics as pretext, would be functionally indistinguishable from the retro-ratcheting this contract explicitly forbids (*Forbidden moves* #1) — the person doing the refining would already know which results the new numbers would validate or kill. Rather than perform a compromised refinement and label it "post-pilot," the bands are locked **as originally drafted** on 2026-06-16/19/26 (detector #1's own reporting-only demotion, decided 2026-07-16 before any regime beyond the pilot had run, is the one legitimate mid-project revision and stands unchanged). Any known weakness in a threshold (e.g. `MIN_TEST_CELLS=100` being a plausibility floor, not a derived statistic) remains exactly as flagged where it's stated below — this lock does not resolve those weaknesses, it only closes the open "refine then lock" commitment honestly. After this point, any further change is a reportable protocol deviation, not an edit.
 
 **What this contract does NOT cover:** integration quality (scVI vs scANVI, scIB metrics) — that is evaluated in the integration notebooks (colab_06), not here. This contract is only about what CPT does to the foundation-model embeddings.
 
@@ -134,13 +134,13 @@ These are **go/no-go sanity checks**, run before interpreting any eval. Detector
 
 ---
 
-## Pilot → lock protocol
+## Pilot → lock protocol (as originally specified, and what actually happened)
 
-1. **Commit this PROVISIONAL contract** before the first CPT run. Record the git SHA.
-2. **Run the N=1 pilot.** Confirm the pipeline executes end-to-end and detector #1 registers movement.
-3. **Refine thresholds once**, numerically, using the pilot's observed noise floor and a cross-check against the literature (Boiarsky 2023; Kedzierska 2025). Log every change and its reason in a dated commit. This is the *only* permitted threshold edit.
-4. **Permanently lock** in a dated commit. From here, the bands are frozen.
-5. **Run final training (N=3).** Any deviation from the locked contract is reported explicitly as a protocol deviation in the results write-up — never as a silent edit.
+1. **Commit this PROVISIONAL contract** before the first CPT run. Record the git SHA. — *Done, 2026-06-16.*
+2. **Run the N=1 pilot.** Confirm the pipeline executes end-to-end and detector #1 registers movement. — *Done, colab_11, 2026-07-10.*
+3. **Refine thresholds once**, numerically, using the pilot's observed noise floor and a cross-check against the literature (Boiarsky 2023; Kedzierska 2025). Log every change and its reason in a dated commit. This is the *only* permitted threshold edit. — *Missed at the intended time.* Only detector #1's pass/fail bar got a post-pilot revision (2026-07-16, before further CPT runs — legitimate); eval #1–3 and detector #2's numeric bands were never revisited before the full Geneformer + scGPT arcs ran.
+4. **Permanently lock** in a dated commit. From here, the bands are frozen. — *Done retroactively, 2026-07-28, at the values from step 1/3 above — not because they were validated against pilot noise as this step intended, but because deriving new numbers now, with final results already known, would itself violate this contract's anti-retro-ratcheting rule. See *Status* above.*
+5. **Run final training (N=3).** Any deviation from the locked contract is reported explicitly as a protocol deviation in the results write-up — never as a silent edit. — *N=3 seed replication was scoped out (cost/calendar tradeoff, documented in project status); every regime ran N=1. This is a real limitation on the CPT results' statistical power, separate from the threshold-lock question above, and is not something this contract can retroactively fix.*
 
 ---
 
@@ -152,6 +152,6 @@ These are **go/no-go sanity checks**, run before interpreting any eval. Detector
 | Eval #1 label source resolved (microglia) + relabel DAM→activated + confound clause | (this commit) | 2026-06-19 |
 | Post-pilot refinement (detector #1 only — reporting-only reframe, `>0.05` bar dropped; eval#1-3/detector#2 bands untouched, pending their own pilot runs) | (this commit) | 2026-07-16 |
 | `MIN_TEST_CELLS=100` power floor added (colab_15, signed off as a heuristic, not statistically derived) | (this commit) | 2026-07-26 |
-| Permanent lock | TBD | TBD |
+| Permanent lock — bands unchanged from provisional values; the intended post-pilot numeric refinement (step 3 above) was missed and is not performed retroactively, to avoid retro-ratcheting against known final results (see *Status*) | (this commit) | 2026-07-28 |
 
 This file is the artifact a reviewer (postdoc, or Harvard) inspects to confirm the CPT conclusions were committed to in advance.
